@@ -12,7 +12,7 @@ export default function VenueMap() {
         <div className="qr-panel" data-reveal>
           <div className="qr-copy">
             <p className="eyebrow">Easy Navigation</p>
-            <h2 id="qr-title">Scan for Location</h2>
+            <h2 id="qr-title">SCAN FOR LOCATION</h2>
             <span className="rule" aria-hidden="true" />
             <p className="qr-description">
               Parekh Vinayaka Mall, BH Road, Shivamogga — scan the QR code with your mobile camera or tap the button below to get direct driving directions on Google Maps.
@@ -44,15 +44,15 @@ export default function VenueMap() {
                   <source srcSet={qrLocationWebp} type="image/webp" />
                   <img
                     src={qrLocation}
-                    alt="QR code for Parekh Vinayaka Mall Location"
-                    width="220"
-                    height="220"
+                    alt="High-resolution QR code for Parekh Vinayaka Mall Shivamogga Location"
+                    width="260"
+                    height="260"
                     loading="lazy"
                     decoding="async"
                   />
                 </picture>
               </div>
-              <span className="qr-caption">Scan for Mall Location</span>
+              <span className="qr-caption">SCAN FOR LOCATION</span>
             </a>
           </div>
         </div>

@@ -14,8 +14,8 @@ export default function GalaDinner() {
     <section className="section gala" id="gala" aria-labelledby="gala-title">
       <div className="container narrow">
         <div className="event-banner">
-          <p className="eyebrow">Evening Reception</p>
-          <h2 id="gala-title">Business Partner’s Gala Dinner</h2>
+          <p className="eyebrow">EVENING RECEPTION</p>
+          <h2 id="gala-title">BUSINESS PARTNER’S GALA DINNER</h2>
           <span className="rule" aria-hidden="true" />
 
           <p className="gala-intro">

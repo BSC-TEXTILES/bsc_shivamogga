@@ -7,170 +7,163 @@ import {
   Phone,
   Sparkles
 } from "lucide-react";
-import inviteP7Webp from "../assets/invite-p7.webp";
-import inviteP7Sm from "../assets/invite-p7-sm.webp";
 
 const ALL_INVITEES = [
-  // Column 1
   {
-    name: "Shri S. S. Mallikarjun",
+    name: "SHRI S. S. MALLIKARJUN",
     role: "Hon’ble Minister, Govt. of Karnataka & MLA, Davanagere North",
     category: "minister-mp",
-    tag: "Hon'ble Minister"
+    tag: "HON'BLE MINISTER"
   },
   {
-    name: "Dr. Prabhakar Kore",
-    role: "Chairman, KLE Society & Former Member of Parliament",
-    category: "prominent",
-    tag: "Former MP & Chairman"
-  },
-  {
-    name: "Shri G. M. Siddeshwar",
-    role: "Former Union Minister & Former Member of Parliament",
-    category: "minister-mp",
-    tag: "Former Union Minister"
-  },
-  {
-    name: "Shri D. G. Shanthana Gowda",
-    role: "Hon’ble MLA, Honnali",
-    category: "mla-mlc",
-    tag: "Hon'ble MLA"
-  },
-  {
-    name: "Shri M. P. Renukacharya",
-    role: "Former Minister, Government of Karnataka",
-    category: "minister-mp",
-    tag: "Former Minister"
-  },
-  {
-    name: "Shri Basavaraju V. Shivaganga",
-    role: "Hon’ble MLA, Channagiri",
-    category: "mla-mlc",
-    tag: "Hon'ble MLA"
-  },
-  {
-    name: "Shri Madal Virupakshappa",
-    role: "Former MLA, Channagiri",
-    category: "mla-mlc",
-    tag: "Former MLA"
-  },
-
-  // Column 2
-  {
-    name: "Shri B. Y. Raghavendra",
+    name: "SHRI B. Y. RAGHAVENDRA",
     role: "Hon’ble Member of Parliament, Shivamogga Lok Sabha Constituency",
     category: "minister-mp",
-    tag: "Hon'ble MP"
+    tag: "HON'BLE MP"
   },
   {
-    name: "Shri Basavaraj Bommai",
+    name: "SHRI BASAVARAJ BOMMAI",
     role: "Hon’ble Member of Parliament, Haveri & Former Chief Minister of Karnataka",
     category: "minister-mp",
-    tag: "Hon'ble MP & Former CM"
+    tag: "HON'BLE MP & FORMER CM"
   },
   {
-    name: "Shri S. N. Channabasappa",
-    role: "Hon’ble MLA, Shivamogga",
-    category: "mla-mlc",
-    tag: "Hon'ble MLA"
-  },
-  {
-    name: "Smt. Sharada Puryanaik",
-    role: "Hon’ble MLA, Shivamogga Rural",
-    category: "mla-mlc",
-    tag: "Hon'ble MLA"
-  },
-  {
-    name: "Shri D. S. Arun",
-    role: "Hon’ble Member of Karnataka Legislative Council",
-    category: "mla-mlc",
-    tag: "Hon'ble MLC"
-  },
-  {
-    name: "Dr. Dhananjaya Sarji",
-    role: "Hon’ble Member of Karnataka Legislative Council",
-    category: "mla-mlc",
-    tag: "Hon'ble MLC"
-  },
-  {
-    name: "Shri Murugesh R. Nirani",
-    role: "Former Minister, Govt. of Karnataka",
+    name: "SHRI G. M. SIDDESHWAR",
+    role: "Former Union Minister & Former Member of Parliament",
     category: "minister-mp",
-    tag: "Former Minister"
+    tag: "FORMER UNION MINISTER"
   },
   {
-    name: "Dr. Vijay Sankeshwar",
-    role: "Chairman & Managing Director, VRL Group & Former Member of Parliament",
-    category: "prominent",
-    tag: "Former MP & CMD"
-  },
-
-  // Column 3
-  {
-    name: "Shri B. Y. Vijayendra",
-    role: "Hon’ble MLA, Shikaripura & State President, BJP Karnataka",
-    category: "mla-mlc",
-    tag: "Hon'ble MLA & President"
-  },
-  {
-    name: "Shri K. S. Eshwarappa",
+    name: "SHRI K. S. ESHWARAPPA",
     role: "Former Deputy Chief Minister, Government of Karnataka",
     category: "minister-mp",
-    tag: "Former Deputy CM"
+    tag: "FORMER DEPUTY CM"
   },
   {
-    name: "Shri B. K. Sangameshwara",
-    role: "Hon’ble MLA, Bhadravati",
+    name: "SHRI M. P. RENUKACHARYA",
+    role: "Former Minister, Government of Karnataka",
+    category: "minister-mp",
+    tag: "FORMER MINISTER"
+  },
+  {
+    name: "SHRI MURUGESH R. NIRANI",
+    role: "Former Minister, Govt. of Karnataka",
+    category: "minister-mp",
+    tag: "FORMER MINISTER"
+  },
+  {
+    name: "SHRI B. Y. VIJAYENDRA",
+    role: "Hon’ble MLA, Shikaripura & State President, BJP Karnataka",
     category: "mla-mlc",
-    tag: "Hon'ble MLA"
+    tag: "HON'BLE MLA & PRESIDENT"
   },
   {
-    name: "Shri Araga Jnanendra",
-    role: "Hon’ble MLA, Tirthahalli",
+    name: "SHRI S. N. CHANNABASAPPA",
+    role: "Hon’ble MLA, Shivamogga",
     category: "mla-mlc",
-    tag: "Hon'ble MLA"
+    tag: "HON'BLE MLA"
   },
   {
-    name: "Shri Gopal Krishna Belur",
+    name: "SMT. SHARADA PURYANAIK",
+    role: "Hon’ble MLA, Shivamogga Rural",
+    category: "mla-mlc",
+    tag: "HON'BLE MLA"
+  },
+  {
+    name: "SHRI ARAGA JNANENDRA",
+    role: "Hon’ble MLA, Tirthahalli & Former Home Minister",
+    category: "mla-mlc",
+    tag: "HON'BLE MLA"
+  },
+  {
+    name: "SHRI GOPAL KRISHNA BELUR",
     role: "Hon’ble MLA, Sagar",
     category: "mla-mlc",
-    tag: "Hon'ble MLA"
+    tag: "HON'BLE MLA"
   },
   {
-    name: "Shri H. D. Thammaiah",
+    name: "SHRI B. K. SANGAMESHWARA",
+    role: "Hon’ble MLA, Bhadravati",
+    category: "mla-mlc",
+    tag: "HON'BLE MLA"
+  },
+  {
+    name: "SHRI H. D. THAMMAIAH",
     role: "Hon’ble MLA, Chikkamagaluru",
     category: "mla-mlc",
-    tag: "Hon'ble MLA"
+    tag: "HON'BLE MLA"
   },
   {
-    name: "Shri C. T. Ravi",
+    name: "SHRI D. G. SHANTHANA GOWDA",
+    role: "Hon’ble MLA, Honnali",
+    category: "mla-mlc",
+    tag: "HON'BLE MLA"
+  },
+  {
+    name: "SHRI BASAVARAJU V. SHIVAGANGA",
+    role: "Hon’ble MLA, Channagiri",
+    category: "mla-mlc",
+    tag: "HON'BLE MLA"
+  },
+  {
+    name: "SHRI MADAL VIRUPAKSHAPPA",
+    role: "Former MLA, Channagiri",
+    category: "mla-mlc",
+    tag: "FORMER MLA"
+  },
+  {
+    name: "SHRI D. S. ARUN",
     role: "Hon’ble Member of Karnataka Legislative Council",
     category: "mla-mlc",
-    tag: "Hon'ble MLC"
+    tag: "HON'BLE MLC"
   },
   {
-    name: "Shri K. Mayanna Gowda",
+    name: "DR. DHANANJAYA SARJI",
+    role: "Hon’ble Member of Karnataka Legislative Council",
+    category: "mla-mlc",
+    tag: "HON'BLE MLC"
+  },
+  {
+    name: "SHRI C. T. RAVI",
+    role: "Hon’ble Member of Karnataka Legislative Council",
+    category: "mla-mlc",
+    tag: "HON'BLE MLC"
+  },
+  {
+    name: "DR. PRABHAKAR KORE",
+    role: "Chairman, KLE Society & Former Member of Parliament",
+    category: "prominent",
+    tag: "CHAIRMAN & FORMER MP"
+  },
+  {
+    name: "DR. VIJAY SANKESHWAR",
+    role: "Chairman & Managing Director, VRL Group & Former MP",
+    category: "prominent",
+    tag: "CMD & FORMER MP"
+  },
+  {
+    name: "SHRI K. MAYANNA GOWDA",
     role: "Hon’ble Mayor, Shivamogga City Corporation",
     category: "prominent",
-    tag: "Hon'ble Mayor"
+    tag: "HON'BLE MAYOR"
   }
 ];
 
 const CATEGORIES = [
-  { id: "all", label: "All Dignitaries", count: ALL_INVITEES.length },
+  { id: "all", label: "ALL DIGNITARIES", count: ALL_INVITEES.length },
   {
     id: "minister-mp",
-    label: "Ministers & MPs",
+    label: "MINISTERS & MPS",
     count: ALL_INVITEES.filter((i) => i.category === "minister-mp").length
   },
   {
     id: "mla-mlc",
-    label: "MLAs & MLCs",
+    label: "MLAS & MLCS",
     count: ALL_INVITEES.filter((i) => i.category === "mla-mlc").length
   },
   {
     id: "prominent",
-    label: "Prominent Leaders",
+    label: "PROMINENT LEADERS",
     count: ALL_INVITEES.filter((i) => i.category === "prominent").length
   }
 ];
@@ -183,12 +176,6 @@ export default function SpecialInvitees() {
       ? ALL_INVITEES
       : ALL_INVITEES.filter((item) => item.category === activeTab);
 
-  // Group into columns for balanced grid presentation
-  const colSize = Math.ceil(filteredInvitees.length / 3);
-  const col1 = filteredInvitees.slice(0, colSize);
-  const col2 = filteredInvitees.slice(colSize, colSize * 2);
-  const col3 = filteredInvitees.slice(colSize * 2);
-
   const whatsappUrl =
     "https://wa.me/919900014212?text=Greetings%20BSC%2C%20inquiring%20about%20the%20Grand%20Opening%20ceremony%20and%20Special%20Invitees.";
 
@@ -197,9 +184,14 @@ export default function SpecialInvitees() {
   return (
     <section className="section invitees" id="invitees" aria-labelledby="invitees-title">
       <div className="container">
-        <header className="section-head" data-reveal>
-          <p className="eyebrow">Dignitaries &amp; Guests</p>
-          <h2 id="invitees-title">Special Invitees</h2>
+        <header className="section-head text-center" data-reveal>
+          <div className="badge-heritage badge-center">
+            <Sparkles size={14} className="badge-sparkle" aria-hidden="true" />
+            <span>Honoured Guests</span>
+          </div>
+          <h2 id="invitees-title" className="invitees-main-title">
+            SPECIAL INVITEES
+          </h2>
           <span className="rule" aria-hidden="true" />
           <p className="section-intro">
             Distinguished leaders, ministers, parliamentarians, and civic dignitaries honouring our Grand Opening.
@@ -225,45 +217,17 @@ export default function SpecialInvitees() {
           </div>
         </div>
 
-        {/* Dignitary Cards Grid */}
-        <div className="invitee-columns" data-reveal>
-          <ul className="invitee-list">
-            {col1.map((item) => (
-              <li key={item.name} className="invitee-item">
-                <div className="invitee-top">
-                  <strong>{item.name}</strong>
-                  <span className="invitee-badge">{item.tag}</span>
-                </div>
-                <span>{item.role}</span>
-              </li>
-            ))}
-          </ul>
-
-          <ul className="invitee-list">
-            {col2.map((item) => (
-              <li key={item.name} className="invitee-item">
-                <div className="invitee-top">
-                  <strong>{item.name}</strong>
-                  <span className="invitee-badge">{item.tag}</span>
-                </div>
-                <span>{item.role}</span>
-              </li>
-            ))}
-          </ul>
-
-          {col3.length > 0 && (
-            <ul className="invitee-list">
-              {col3.map((item) => (
-                <li key={item.name} className="invitee-item">
-                  <div className="invitee-top">
-                    <strong>{item.name}</strong>
-                    <span className="invitee-badge">{item.tag}</span>
-                  </div>
-                  <span>{item.role}</span>
-                </li>
-              ))}
-            </ul>
-          )}
+        {/* Uniform Dignitary Cards Grid */}
+        <div className="invitees-uniform-grid" data-reveal>
+          {filteredInvitees.map((item) => (
+            <div key={item.name} className="invitee-uniform-card">
+              <div className="invitee-card-header">
+                <span className="invitee-badge">{item.tag}</span>
+              </div>
+              <strong className="invitee-name">{item.name}</strong>
+              <p className="invitee-role">{item.role}</p>
+            </div>
+          ))}
         </div>
 
         {/* Section Action Hub */}
@@ -314,27 +278,6 @@ export default function SpecialInvitees() {
               <Phone size={15} aria-hidden="true" />
               <span>Call 99000 14212</span>
             </a>
-          </div>
-        </div>
-
-        {/* Official Invitation Artwork */}
-        <div className="invitees-art" data-reveal>
-          <div className="invite-frame slim">
-            <picture>
-              <source
-                type="image/webp"
-                srcSet={`${inviteP7Sm} 768w, ${inviteP7Webp} 1200w`}
-                sizes="(max-width: 768px) 92vw, (max-width: 1200px) 70vw, 980px"
-              />
-              <img
-                src={inviteP7Webp}
-                alt="Special Invitees official invitation artwork"
-                width="1600"
-                height="1131"
-                loading="lazy"
-                decoding="async"
-              />
-            </picture>
           </div>
         </div>
       </div>

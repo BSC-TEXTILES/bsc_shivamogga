@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Legacy from "./components/Legacy";
 import Showroom from "./components/Showroom";
+import Collections from "./components/Collections";
 import GrandOpening from "./components/GrandOpening";
 import GalaDinner from "./components/GalaDinner";
 import VendorMeet from "./components/VendorMeet";
@@ -11,6 +12,7 @@ import Locations from "./components/Locations";
 import FamilyGreetings from "./components/FamilyGreetings";
 import VenueMap from "./components/VenueMap";
 import Footer from "./components/Footer";
+import DoorEntrance from "./components/DoorEntrance";
 import { use3dScroll } from "./hooks/use3dScroll";
 
 export default function App() {
@@ -18,6 +20,8 @@ export default function App() {
 
   return (
     <div className="app-root">
+      <DoorEntrance />
+
       <a className="skip-link" href="#main">
         Skip to main content
       </a>
@@ -28,6 +32,7 @@ export default function App() {
         <Hero />
         <Legacy />
         <Showroom />
+        <Collections />
         <GrandOpening />
         <GalaDinner />
         <VendorMeet />

@@ -66,11 +66,11 @@ export default function Hero() {
                 <img
                   src={inviteP1Webp}
                   alt="Welcome to the Grand Opening of BSC Shivamogga on Monday, 12 October 2026 at BH Road, Shivamogga"
-                  width="1600"
-                  height="1131"
+                  width="1492"
+                  height="1054"
                   fetchPriority="high"
                   decoding="sync"
-                  style={{ aspectRatio: "1600 / 1131" }}
+                  style={{ aspectRatio: "1492 / 1054" }}
                 />
               </picture>
             </div>

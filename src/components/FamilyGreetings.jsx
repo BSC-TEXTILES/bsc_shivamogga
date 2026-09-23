@@ -1,23 +1,21 @@
 import React from "react";
-import inviteP8Webp from "../assets/invite-p8.webp";
-import inviteP8Sm from "../assets/invite-p8-sm.webp";
 
 export default function FamilyGreetings() {
   const familyList = [
-    { text: "Smt Girija & Sri B.C.Umapathy." },
-    { text: "Smt Poornima & Sri B.C.Chandrasekhar." },
-    { text: "Smt Deepa & Sri B.C.Shivakumar." },
-    { text: "Smt Madhu & Sri B.U.Chandrashekar." },
-    { text: "Ved Bankapur & Jiya Bankapur." },
-    { text: "Smt Roopa & Sri Vijay Suttatti." },
-    { text: "Smt Rekha & Dr.Naveen Somanna" },
-    { text: "V.Somanna Family, Bengaluru." },
-    { text: "Hon'ble Minister of State for Jal Shakthi and Railways, Govt of India.", isAccent: true },
-    { text: "C.G.Suttatti Family, Pune." },
-    { text: "Guddodagi Family, Raybag." },
-    { text: "BSC Textiles Pvt Ltd, Belagavi." },
-    { text: "Bankapur Family", isHighlight: true },
-    { text: "Family & Friends", isHighlight: true }
+    { text: "SMT. GIRIJA & SRI B.C. UMAPATHY" },
+    { text: "SMT. POORNIMA & SRI B.C. CHANDRASEKHAR" },
+    { text: "SMT. DEEPA & SRI B.C. SHIVAKUMAR" },
+    { text: "SMT. MADHU & SRI B.U. CHANDRASHEKAR" },
+    { text: "VED BANKAPUR & JIYA BANKAPUR" },
+    { text: "SMT. ROOPA & SRI VIJAY SUTTATTI" },
+    { text: "SMT. REKHA & DR. NAVEEN SOMANNA" },
+    { text: "V. SOMANNA FAMILY, BENGALURU" },
+    { text: "HON'BLE MINISTER OF STATE FOR JAL SHAKTHI AND RAILWAYS, GOVT OF INDIA", isAccent: true },
+    { text: "C.G. SUTTATTI FAMILY, PUNE" },
+    { text: "GUDDODAGI FAMILY, RAYBAG" },
+    { text: "BSC TEXTILES PVT LTD, BELAGAVI" },
+    { text: "BANKAPUR FAMILY", isHighlight: true },
+    { text: "FAMILY & FRIENDS", isHighlight: true }
   ];
 
   return (
@@ -29,35 +27,17 @@ export default function FamilyGreetings() {
           <span className="rule" aria-hidden="true" />
         </header>
 
-        <ul className="compliment-list" data-reveal>
-          {familyList.map((item, idx) => (
-            <li
-              key={idx}
-              className={`${item.isAccent ? "accent" : ""} ${item.isHighlight ? "highlight" : ""}`}
-            >
-              {item.text}
-            </li>
-          ))}
-        </ul>
-
-        <div className="family-art" data-reveal>
-          <div className="invite-frame slim">
-            <picture>
-              <source
-                type="image/webp"
-                srcSet={`${inviteP8Sm} 768w, ${inviteP8Webp} 1200w`}
-                sizes="(max-width: 768px) 92vw, (max-width: 1200px) 70vw, 880px"
-              />
-              <img
-                src={inviteP8Webp}
-                alt="With Best Compliments From invitation artwork"
-                width="1600"
-                height="1131"
-                loading="lazy"
-                decoding="async"
-              />
-            </picture>
-          </div>
+        <div className="family-card" data-reveal>
+          <ul className="compliment-list">
+            {familyList.map((item, idx) => (
+              <li
+                key={idx}
+                className={`${item.isAccent ? "accent" : ""} ${item.isHighlight ? "highlight" : ""}`}
+              >
+                {item.text}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

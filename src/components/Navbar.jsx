@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sparkles } from "lucide-react";
 import bscLogo from "../assets/bsc-logo-crop.webp";
 
 const NAV_ITEMS = [
   { label: "Legacy", href: "#legacy" },
   { label: "Showroom", href: "#showroom" },
+  { label: "Collections", href: "#collections" },
   { label: "Grand Opening", href: "#opening" },
   { label: "Gala Dinner", href: "#gala" },
   { label: "Vendor Meet", href: "#vendors" },
   { label: "Invitees", href: "#invitees" },
-  { label: "Locations", href: "#locations" },
+  { label: "Showrooms", href: "#locations" },
   { label: "Venue Map", href: "#qr" }
 ];
 
@@ -27,7 +28,7 @@ export default function Navbar() {
 
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const triggerY = scrollY + 120;
+          const triggerY = scrollY + 140;
           let currentId = "hero";
 
           for (let i = 0; i < NAV_ITEMS.length; i++) {
@@ -74,12 +75,13 @@ export default function Navbar() {
           <img
             src={bscLogo}
             alt="BSC Logo"
-            width="58"
-            height="38"
+            width="60"
+            height="40"
             className="brand-mark"
           />
           <div className="brand-text">
-            <span className="brand-title">BSC Shivamogga</span>
+            <span className="brand-title">BSC SHIVAMOGGA</span>
+            <span className="brand-sub">ESTABLISHED 1938</span>
           </div>
         </a>
 
@@ -94,19 +96,35 @@ export default function Navbar() {
               {item.label}
             </a>
           ))}
+          <div className="nav-mobile-cta">
+            <a
+              className="btn btn-nav-cta"
+              href="#opening"
+              onClick={() => setIsOpen(false)}
+            >
+              <Sparkles size={14} aria-hidden="true" />
+              <span>Inauguration Invitation</span>
+            </a>
+          </div>
         </nav>
 
-        <button
-          className="nav-toggle"
-          id="nav-toggle"
-          type="button"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-expanded={isOpen}
-          aria-controls="site-nav"
-          aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
-        >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="header-actions">
+          <a className="btn btn-header-rsvp" href="#opening">
+            <span>RSVP</span>
+          </a>
+
+          <button
+            className="nav-toggle"
+            id="nav-toggle"
+            type="button"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-expanded={isOpen}
+            aria-controls="site-nav"
+            aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+          >
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
     </header>
   );

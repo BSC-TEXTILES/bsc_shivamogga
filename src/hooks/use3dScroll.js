@@ -47,7 +47,7 @@ export function use3dScroll() {
     const heroCard = document.querySelector(".hero-card");
     const heroCopy = document.querySelector(".hero-copy");
     const depthCards = document.querySelectorAll(
-      ".invite-frame, .location-card, .leader-card, .qr-panel"
+      ".invite-frame, .location-card, .leader-card, .qr-panel, .collection-card-3d, .opening-ceremony-card"
     );
 
     // Cache metrics to eliminate layout recalculations on scroll frames
