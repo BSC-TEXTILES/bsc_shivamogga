@@ -67,7 +67,6 @@ export default function Navbar() {
           />
           <div className="brand-text">
             <span className="brand-title">BSC Shivamogga</span>
-            <span className="brand-sub">B.S. Channabasappa &amp; Sons &bull; Since 1938</span>
           </div>
         </a>
 
