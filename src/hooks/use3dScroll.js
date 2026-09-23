@@ -7,7 +7,7 @@ export function use3dScroll() {
       window.matchMedia("(max-width: 960px)").matches ||
       window.matchMedia("(pointer: coarse)").matches;
 
-    // 1. Intersection Observer for Smooth Scroll Reveals
+    // 1. Intersection Observer for Smooth Scroll Reveals with Proactive Visibility
     const revealElements = document.querySelectorAll("[data-reveal]");
     const observer = new IntersectionObserver(
       (entries) => {
@@ -18,14 +18,22 @@ export function use3dScroll() {
           }
         });
       },
-      { rootMargin: "0px 0px -5% 0px", threshold: 0.05 }
+      { rootMargin: "0px 0px 80px 0px", threshold: 0.01 }
     );
 
     if (prefersReducedMotion) {
       revealElements.forEach((el) => el.classList.add("is-visible"));
     } else {
       document.documentElement.classList.add("js-reveal");
-      revealElements.forEach((el) => observer.observe(el));
+      revealElements.forEach((el) => {
+        // Immediately reveal elements already near or within the viewport
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight + 100) {
+          el.classList.add("is-visible");
+        } else {
+          observer.observe(el);
+        }
+      });
     }
 
     if (prefersReducedMotion) {
@@ -42,7 +50,6 @@ export function use3dScroll() {
     let isRunning = false;
     let rafId = 0;
 
-    const hero = document.getElementById("hero");
     const heroCard = document.querySelector(".hero-card");
     const heroCopy = document.querySelector(".hero-copy");
     const depthCards = document.querySelectorAll(
@@ -51,12 +58,10 @@ export function use3dScroll() {
 
     // Cache metrics to eliminate layout recalculations on scroll frames
     let vh = window.innerHeight || 800;
-    let heroH = hero ? hero.offsetHeight || vh : vh;
     let cardMetrics = [];
 
     function measureLayout() {
       vh = window.innerHeight || 800;
-      if (hero) heroH = hero.offsetHeight || vh;
       const scrollY = window.scrollY || 0;
       cardMetrics = Array.from(depthCards).map((el) => {
         const rect = el.getBoundingClientRect();
@@ -80,30 +85,27 @@ export function use3dScroll() {
     }
 
     function updateHero() {
-      if (!hero) return;
-      const progress = clamp(currentScrollY / heroH, 0, 1.25);
-      const mobileFactor = isCoarse ? 0.35 : 1.0;
+      if (!heroCard && !heroCopy) return;
       const pointerFactor = isCoarse ? 0 : 1.0;
 
       if (heroCard) {
-        const zCard = 40 - progress * 90 * mobileFactor;
-        const yCard = -progress * 55 * mobileFactor;
-        const rotXCard = currentMouseY * 3.5 * pointerFactor + progress * 2.5 * mobileFactor;
+        const rotXCard = currentMouseY * 3.5 * pointerFactor;
         const rotYCard = currentMouseX * -4.0 * pointerFactor;
         const xCard = currentMouseX * 10 * pointerFactor;
-        heroCard.style.transform = `translate3d(${xCard.toFixed(2)}px, ${yCard.toFixed(2)}px, ${zCard.toFixed(2)}px) rotateX(${rotXCard.toFixed(2)}deg) rotateY(${rotYCard.toFixed(2)}deg)`;
+        heroCard.style.transform = `translate3d(${xCard.toFixed(2)}px, 0px, 0px) rotateX(${rotXCard.toFixed(2)}deg) rotateY(${rotYCard.toFixed(2)}deg)`;
       }
 
-      if (heroCopy) {
-        const zCopy = 60 + progress * 30 * mobileFactor;
-        const yCopy = -progress * 90 * mobileFactor;
-        const xCopy = currentMouseX * 6 * pointerFactor;
-        heroCopy.style.transform = `translate3d(${xCopy.toFixed(2)}px, ${yCopy.toFixed(2)}px, ${zCopy.toFixed(2)}px)`;
+      if (heroCopy && pointerFactor > 0) {
+        const xCopy = currentMouseX * 6;
+        heroCopy.style.transform = `translate3d(${xCopy.toFixed(2)}px, 0px, 0px)`;
       }
     }
 
     function updateDepthCards() {
-      const mobileFactor = isCoarse ? 0.3 : 1.0;
+      // Extremely subtle depth that never creates vertical gaps or overlaps
+      const mobileFactor = isCoarse ? 0 : 0.4;
+      if (mobileFactor === 0) return;
+
       cardMetrics.forEach(({ el, top, height }) => {
         const elTop = top - currentScrollY;
         if (elTop + height < -80 || elTop > vh + 80) {
@@ -111,7 +113,7 @@ export function use3dScroll() {
           return;
         }
         const progress = clamp((vh - elTop) / (vh + height), 0, 1);
-        const offset = (0.5 - progress) * 28 * mobileFactor;
+        const offset = (0.5 - progress) * 8 * mobileFactor;
         el.style.transform = `translate3d(0, ${offset.toFixed(2)}px, 0)`;
       });
     }

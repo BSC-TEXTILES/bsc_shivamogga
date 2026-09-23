@@ -305,10 +305,44 @@ a {
   min-height: auto;
   display: grid;
   place-items: center;
-  padding: calc(var(--header-h) + 1.25rem) 1.25rem clamp(2rem, 3.5vw, 2.75rem);
+  padding: calc(var(--header-h) + 1rem) 1.25rem clamp(1.75rem, 3vw, 2.5rem);
   background: radial-gradient(120% 90% at 50% 25%, #460E18 0%, #2B070E 50%, #180307 100%);
   color: #FFFDF9;
   overflow: hidden;
+}
+
+/* Hero Entrance Animations */
+@keyframes heroFadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroCardEntrance {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 .hero-ambient-glow {
@@ -358,7 +392,7 @@ a {
   width: 100%;
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-  gap: clamp(1.75rem, 4vw, 3.25rem);
+  gap: clamp(1.5rem, 3.5vw, 3rem);
   align-items: center;
 }
 
@@ -381,6 +415,7 @@ a {
   color: var(--gold-light);
   margin-bottom: 0.85rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  animation: heroFadeDown 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .badge-sparkle {
@@ -396,6 +431,7 @@ a {
   letter-spacing: 0.02em;
   margin: 0 0 0.35rem;
   text-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  animation: heroFadeUp 0.8s 0.1s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .hero-subtitle {
@@ -405,6 +441,7 @@ a {
   color: var(--gold-light);
   margin: 0 0 1.15rem;
   letter-spacing: 0.04em;
+  animation: heroFadeUp 0.8s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .hero-meta-card {
@@ -418,6 +455,7 @@ a {
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
+  animation: heroFadeUp 0.8s 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .meta-row {
@@ -463,6 +501,7 @@ a {
   display: flex;
   flex-wrap: wrap;
   gap: 0.85rem;
+  animation: heroFadeUp 0.8s 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .btn {
@@ -483,6 +522,10 @@ a {
 
 .btn:hover {
   transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(0);
 }
 
 .btn-hero-primary {
@@ -515,6 +558,7 @@ a {
   width: 100%;
   max-width: 530px;
   justify-self: end;
+  animation: heroCardEntrance 0.9s 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .hero-invitation-frame {
@@ -588,13 +632,17 @@ a {
 
 .section {
   position: relative;
-  padding: clamp(2.25rem, 4vw, 3.5rem) 0;
+  padding: clamp(1.75rem, 3vw, 2.75rem) 0;
   overflow: clip;
+}
+
+.gala + .vendors {
+  padding-top: clamp(0.75rem, 1.5vw, 1.25rem);
 }
 
 .section-head {
   text-align: center;
-  margin-bottom: clamp(1.25rem, 2.5vw, 1.85rem);
+  margin-bottom: clamp(1.15rem, 2.2vw, 1.65rem);
 }
 
 .eyebrow {
@@ -1757,18 +1805,34 @@ h2 {
 }
 
 /* --------------------------------------------------------------------------
-   SCROLL REVEALS (ERROR-SAFE PROGRESSIVE ENHANCEMENT)
+   SCROLL REVEALS & CARD STAGGER ANIMATIONS
    -------------------------------------------------------------------------- */
 
 [data-reveal] {
   opacity: 1;
   transform: none;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 .js-reveal [data-reveal]:not(.is-visible) {
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
+  transform: translateY(20px);
+}
+
+.js-reveal [data-reveal="scale"]:not(.is-visible) {
+  opacity: 0;
+  transform: scale(0.97) translateY(14px);
+}
+
+.js-reveal [data-reveal="left"]:not(.is-visible) {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.js-reveal [data-reveal="right"]:not(.is-visible) {
+  opacity: 0;
+  transform: translateX(20px);
 }
 
 .js-reveal [data-reveal].is-visible {
@@ -1776,10 +1840,54 @@ h2 {
   transform: none;
 }
 
-.js-reveal .location-card[data-reveal].is-visible,
-.js-reveal .leader-card[data-reveal].is-visible,
-.js-reveal .qr-panel[data-reveal].is-visible {
-  transition: opacity 0.55s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s;
+/* Staggered Card Reveals */
+.js-reveal .leaders .leader-card:nth-child(1) { transition-delay: 0.05s; }
+.js-reveal .leaders .leader-card:nth-child(2) { transition-delay: 0.12s; }
+.js-reveal .leaders .leader-card:nth-child(3) { transition-delay: 0.19s; }
+
+.js-reveal .location-grid .location-card:nth-child(1) { transition-delay: 0.05s; }
+.js-reveal .location-grid .location-card:nth-child(2) { transition-delay: 0.12s; }
+.js-reveal .location-grid .location-card:nth-child(3) { transition-delay: 0.19s; }
+
+/* Interactive Hover Micro-Interactions */
+.location-card {
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s;
+}
+
+.location-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.location-media img {
+  transition: transform 0.4s var(--ease), filter 0.4s var(--ease);
+}
+
+.location-card:hover .location-media img {
+  transform: scale(1.03);
+  filter: brightness(1.04);
+}
+
+.leader-card {
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s;
+}
+
+.leader-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.showroom-frame {
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+
+.showroom-frame:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 48px rgba(35, 12, 18, 0.12);
+}
+
+.qr-panel {
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
 }
 
 /* --------------------------------------------------------------------------
