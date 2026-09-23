@@ -2,21 +2,21 @@ import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import bscLogo from "../assets/bsc-logo-crop.png";
 
+const NAV_ITEMS = [
+  { label: "Legacy", href: "#legacy" },
+  { label: "Showroom", href: "#showroom" },
+  { label: "Grand Opening", href: "#opening" },
+  { label: "Gala Dinner", href: "#gala" },
+  { label: "Vendor Meet", href: "#vendors" },
+  { label: "Invitees", href: "#invitees" },
+  { label: "Locations", href: "#locations" },
+  { label: "Venue Map", href: "#qr" }
+];
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
-
-  const navItems = [
-    { label: "Legacy", href: "#legacy" },
-    { label: "Showroom", href: "#showroom" },
-    { label: "Grand Opening", href: "#opening" },
-    { label: "Gala Dinner", href: "#gala" },
-    { label: "Vendor Meet", href: "#vendors" },
-    { label: "Invitees", href: "#invitees" },
-    { label: "Locations", href: "#locations" },
-    { label: "Venue Map", href: "#qr" }
-  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,7 +26,7 @@ export default function Navbar() {
       const triggerY = scrollY + window.innerHeight * 0.35;
       let currentId = "hero";
 
-      navItems.forEach((item) => {
+      NAV_ITEMS.forEach((item) => {
         const id = item.href.replace("#", "");
         const el = document.getElementById(id);
         if (el) {
@@ -39,6 +39,7 @@ export default function Navbar() {
       setActiveSection(currentId);
     };
 
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -51,9 +52,16 @@ export default function Navbar() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   return (
     <header
-      className={`site-header ${isScrolled ? "is-scrolled" : "is-top"}`}
+      className={`site-header ${isScrolled ? "is-scrolled" : "is-top"} ${isOpen ? "menu-open" : ""}`}
       id="site-header"
     >
       <div className="header-inner">
@@ -71,7 +79,7 @@ export default function Navbar() {
         </a>
 
         <nav className={`nav ${isOpen ? "is-open" : ""}`} id="site-nav" aria-label="Primary Navigation">
-          {navItems.map((item) => (
+          {NAV_ITEMS.map((item) => (
             <a
               key={item.href}
               href={item.href}

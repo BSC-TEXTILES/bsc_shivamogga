@@ -1,6 +1,8 @@
 import React from "react";
 import locDavanagere from "../assets/loc-davanagere.png";
+import locDavanagereWebp from "../assets/loc-davanagere.webp";
 import locShivamogga from "../assets/loc-shivamogga.jpeg";
+import locShivamoggaWebp from "../assets/loc-shivamogga.webp";
 import locBelagavi from "../assets/loc-belagavi.jpg";
 
 export default function Locations() {
@@ -9,19 +11,19 @@ export default function Locations() {
       name: "Davanagere",
       label: "Flagship Showroom",
       image: locDavanagere,
+      webp: locDavanagereWebp,
       alt: "BSC Davanagere flagship showroom",
       width: 1800,
-      height: 1012,
-      highlight: false
+      height: 1012
     },
     {
       name: "Shivamogga",
       label: "New Showroom",
       image: locShivamogga,
+      webp: locShivamoggaWebp,
       alt: "BSC Shivamogga new showroom at Parekh Vinayaka Mall",
       width: 1800,
-      height: 1633,
-      highlight: true
+      height: 1633
     },
     {
       name: "Belagavi",
@@ -29,8 +31,7 @@ export default function Locations() {
       image: locBelagavi,
       alt: "BSC Belagavi The Textile Mall showroom",
       width: 803,
-      height: 570,
-      highlight: false
+      height: 570
     }
   ];
 
@@ -48,19 +49,20 @@ export default function Locations() {
 
         <ul className="location-grid">
           {locations.map((loc) => (
-            <li
-              key={loc.name}
-              className={`location-card ${loc.highlight ? "highlight" : ""}`}
-              data-reveal
-            >
+            <li key={loc.name} className="location-card" data-reveal>
               <div className="location-media">
-                <img
-                  src={loc.image}
-                  alt={loc.alt}
-                  width={loc.width}
-                  height={loc.height}
-                  loading="lazy"
-                />
+                <picture>
+                  {loc.webp && <source srcSet={loc.webp} type="image/webp" />}
+                  <img
+                    src={loc.image}
+                    alt={loc.alt}
+                    width={loc.width}
+                    height={loc.height}
+                    loading="lazy"
+                    decoding="async"
+                    style={{ aspectRatio: `${loc.width} / ${loc.height}` }}
+                  />
+                </picture>
               </div>
               <div className="location-label">
                 <h3>{loc.name}</h3>

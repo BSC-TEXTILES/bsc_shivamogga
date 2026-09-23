@@ -9,7 +9,7 @@ export default function Hero() {
 
       <div className="hero-stage" data-hero-stage>
         <div className="hero-layout">
-          <div className="hero-copy" data-reveal>
+          <div className="hero-copy">
             <div className="badge-heritage">
               <Sparkles size={14} className="badge-sparkle" aria-hidden="true" />
               <span>Established 1938 · Five-Generation Legacy</span>
@@ -46,7 +46,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="hero-card" data-reveal>
+          <div className="hero-card">
             <div className="hero-invitation-frame">
               <img
                 src={inviteP1}
@@ -54,6 +54,8 @@ export default function Hero() {
                 width="1600"
                 height="1131"
                 fetchPriority="high"
+                decoding="sync"
+                style={{ aspectRatio: "1600 / 1131" }}
               />
             </div>
           </div>

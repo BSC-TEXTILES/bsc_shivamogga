@@ -41,7 +41,7 @@ export default function Footer() {
 
       <div className="footer-base">
         <div className="container footer-base-inner">
-          <p>© 2026 BSC Textiles (B.S. Channabasappa &amp; Sons). All rights reserved.</p>
+          <p>© 2026 BSC Textiles. All rights reserved.</p>
           <p className="base-note">Five Generations of Trust &amp; Quality Fashion</p>
         </div>
       </div>

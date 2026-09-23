@@ -46,9 +46,9 @@ export default function VendorMeet() {
               </div>
             </dl>
 
-            <div className="gala-actions-wrapper" style={{ marginTop: "1.25rem", textAlign: "left" }}>
-              <p className="rsvp-title" style={{ textAlign: "left" }}>Kindly RSVP</p>
-              <div className="gala-actions" style={{ justifyContent: "flex-start", marginTop: "0.75rem", paddingTop: "0.75rem" }}>
+            <div className="gala-actions-wrapper vendor-rsvp">
+              <p className="rsvp-title">Kindly RSVP</p>
+              <div className="gala-actions gala-actions-start">
                 <a
                   className="btn btn-gala-primary"
                   href="tel:+919900014212"
