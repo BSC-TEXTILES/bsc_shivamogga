@@ -1,7 +1,7 @@
 import React from "react";
 import { ExternalLink } from "lucide-react";
-import inviteP5 from "../assets/invite-p5.jpg";
 import inviteP5Webp from "../assets/invite-p5.webp";
+import inviteP5Sm from "../assets/invite-p5-sm.webp";
 
 export default function GrandOpening() {
   const dignitaries = [
@@ -26,13 +26,18 @@ export default function GrandOpening() {
           <div className="event-art" data-reveal>
             <div className="invite-frame">
               <picture>
-                <source srcSet={inviteP5Webp} type="image/webp" />
+                <source
+                  type="image/webp"
+                  srcSet={`${inviteP5Sm} 768w, ${inviteP5Webp} 1200w`}
+                  sizes="(max-width: 768px) 92vw, (max-width: 1200px) 46vw, 560px"
+                />
                 <img
-                  src={inviteP5}
+                  src={inviteP5Webp}
                   alt="Grand Opening invitation with heavenly blessings, inauguration by Shri B.S. Yediyurappa, Sri V. Somanna, and Sri Madhu Bangarappa on Monday, 12 October 2026, 10:30 AM onwards"
                   width="1600"
                   height="1131"
                   loading="lazy"
+                  decoding="async"
                 />
               </picture>
             </div>
@@ -89,7 +94,7 @@ export default function GrandOpening() {
                 href="https://www.canvaqr.com/RGS6_7gEBf"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Open Parekh Vinayaka Mall location in Maps (opens in new tab)"
+                aria-label="Open Shivamogga showroom location on Google Maps"
               >
                 <span>Open Mall Location</span>
                 <ExternalLink size={14} className="btn-external-icon" aria-hidden="true" />

@@ -1,6 +1,7 @@
 import React from "react";
 import { Calendar, Clock, MapPin, Sparkles } from "lucide-react";
-import inviteP1 from "../assets/invite-p1.jpg";
+const inviteP1Webp = "/assets/invite-p1.webp";
+const inviteP1Sm = "/assets/invite-p1-sm.webp";
 
 export default function Hero() {
   return (
@@ -37,10 +38,18 @@ export default function Hero() {
             </div>
 
             <div className="hero-actions">
-              <a className="btn btn-hero-primary" href="#opening">
+              <a
+                className="btn btn-hero-primary"
+                href="#opening"
+                aria-label="View Grand Opening invitation details"
+              >
                 Explore Invitation
               </a>
-              <a className="btn btn-hero-secondary" href="#qr">
+              <a
+                className="btn btn-hero-secondary"
+                href="#qr"
+                aria-label="View Venue Map and Location QR code"
+              >
                 Showroom &amp; Venue Map
               </a>
             </div>
@@ -48,15 +57,22 @@ export default function Hero() {
 
           <div className="hero-card">
             <div className="hero-invitation-frame">
-              <img
-                src={inviteP1}
-                alt="Welcome to the Grand Opening of BSC Shivamogga on Monday, 12 October 2026 at BH Road, Shivamogga"
-                width="1600"
-                height="1131"
-                fetchPriority="high"
-                decoding="sync"
-                style={{ aspectRatio: "1600 / 1131" }}
-              />
+              <picture>
+                <source
+                  type="image/webp"
+                  srcSet={`${inviteP1Sm} 768w, ${inviteP1Webp} 1200w`}
+                  sizes="(max-width: 768px) 92vw, (max-width: 1200px) 46vw, 560px"
+                />
+                <img
+                  src={inviteP1Webp}
+                  alt="Welcome to the Grand Opening of BSC Shivamogga on Monday, 12 October 2026 at BH Road, Shivamogga"
+                  width="1600"
+                  height="1131"
+                  fetchPriority="high"
+                  decoding="sync"
+                  style={{ aspectRatio: "1600 / 1131" }}
+                />
+              </picture>
             </div>
           </div>
         </div>

@@ -13,6 +13,7 @@
   --gold-foil: #D4AF37;
   --gold-antique: #C5A262;
   --gold-light: #F4DFB6;
+  --gold-text-light-bg: #7C5004;
   --gold-hairline: rgba(212, 175, 55, 0.35);
 
   --ivory-canvas: #FAF7F2;
@@ -22,7 +23,7 @@
 
   --charcoal-heading: #181B22;
   --charcoal-body: #2B303C;
-  --charcoal-muted: #565D6D;
+  --charcoal-muted: #4A5160;
 
   --shadow-card: 0 8px 24px rgba(35, 12, 18, 0.06), 0 1px 3px rgba(35, 12, 18, 0.04);
   --shadow-hover: 0 16px 40px rgba(35, 12, 18, 0.12), 0 2px 6px rgba(35, 12, 18, 0.06);
@@ -235,7 +236,7 @@ a {
 }
 
 .site-header.is-scrolled .brand-sub {
-  color: var(--gold-antique);
+  color: var(--gold-text-light-bg);
 }
 
 .nav {
@@ -651,7 +652,7 @@ a {
   font-weight: 800;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: var(--gold-antique);
+  color: var(--gold-text-light-bg);
 }
 
 h2 {
@@ -775,7 +776,7 @@ h2 {
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--gold-antique);
+  color: var(--gold-text-light-bg);
 }
 
 /* --------------------------------------------------------------------------
@@ -835,7 +836,7 @@ h2 {
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--gold-antique);
+  color: var(--gold-text-light-bg);
   background: #FFF;
   padding: 0.2rem 0.65rem;
   border-radius: 50px;
@@ -936,7 +937,7 @@ h2 {
   font-size: 0.75em;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--gold-antique);
+  color: var(--gold-text-light-bg);
 }
 
 .invite-line {
@@ -955,7 +956,7 @@ h2 {
   font-size: 0.95rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--gold-antique);
+  color: var(--gold-text-light-bg);
   margin-bottom: 0.6rem;
 }
 
@@ -1014,7 +1015,7 @@ h2 {
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--gold-antique);
+  color: var(--gold-text-light-bg);
   margin-bottom: 0.2rem;
 }
 
@@ -1080,7 +1081,7 @@ h2 {
 }
 
 .gala .eyebrow {
-  color: var(--gold-antique);
+  color: var(--gold-text-light-bg);
 }
 
 .gala .rule {
@@ -1118,7 +1119,7 @@ h2 {
 }
 
 .gala .fact-card dt {
-  color: var(--gold-antique);
+  color: var(--gold-text-light-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1131,7 +1132,7 @@ h2 {
 }
 
 .gala .fact-card dt .fact-icon {
-  color: var(--gold-antique);
+  color: var(--gold-text-light-bg);
 }
 
 .gala .fact-card dd {
@@ -1156,7 +1157,7 @@ h2 {
   font-weight: 800;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--gold-antique);
+  color: var(--gold-text-light-bg);
   margin: 0 0 0.75rem;
 }
 
@@ -1273,7 +1274,7 @@ h2 {
   font-weight: 800;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--gold-antique);
+  color: var(--gold-text-light-bg);
 }
 
 .rsvp-numbers {
@@ -1297,7 +1298,7 @@ h2 {
 }
 
 .rsvp-dot {
-  color: var(--gold-antique);
+  color: var(--gold-text-light-bg);
   opacity: 0.8;
 }
 
@@ -1426,7 +1427,7 @@ h2 {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--gold-antique);
+  color: var(--gold-text-light-bg);
   background: var(--ivory-canvas);
   border: 1px solid var(--ivory-border);
   padding: 0.15rem 0.5rem;
@@ -1465,7 +1466,7 @@ h2 {
 }
 
 .invitees-actions-header .sparkle-gold {
-  color: var(--gold-antique);
+  color: var(--gold-text-light-bg);
 }
 
 .invitees-actions {
@@ -1567,7 +1568,7 @@ h2 {
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--gold-antique);
+  color: var(--gold-text-light-bg);
 }
 
 /* --------------------------------------------------------------------------

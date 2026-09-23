@@ -7,8 +7,8 @@ import {
   Phone,
   Sparkles
 } from "lucide-react";
-import inviteP7 from "../assets/invite-p7.jpg";
 import inviteP7Webp from "../assets/invite-p7.webp";
+import inviteP7Sm from "../assets/invite-p7-sm.webp";
 
 const ALL_INVITEES = [
   // Column 1
@@ -277,7 +277,7 @@ export default function SpecialInvitees() {
             <a
               className="btn btn-gala-primary"
               href="#opening"
-              aria-label="View Inauguration ceremony programme"
+              aria-label="View Grand Opening invitation details"
             >
               <Calendar size={15} aria-hidden="true" />
               <span>Inauguration Programme</span>
@@ -288,7 +288,7 @@ export default function SpecialInvitees() {
               href={mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Open Parekh Vinayaka Mall location in Maps"
+              aria-label="Open Shivamogga showroom location on Google Maps"
             >
               <MapPin size={15} aria-hidden="true" />
               <span>Showroom Location</span>
@@ -309,7 +309,7 @@ export default function SpecialInvitees() {
             <a
               className="btn btn-gala-secondary"
               href="tel:+919900014212"
-              aria-label="Call RSVP helpline 99000 14212"
+              aria-label="Call RSVP contact 99000 14212"
             >
               <Phone size={15} aria-hidden="true" />
               <span>Call 99000 14212</span>
@@ -321,13 +321,18 @@ export default function SpecialInvitees() {
         <div className="invitees-art" data-reveal>
           <div className="invite-frame slim">
             <picture>
-              <source srcSet={inviteP7Webp} type="image/webp" />
+              <source
+                type="image/webp"
+                srcSet={`${inviteP7Sm} 768w, ${inviteP7Webp} 1200w`}
+                sizes="(max-width: 768px) 92vw, (max-width: 1200px) 70vw, 980px"
+              />
               <img
-                src={inviteP7}
+                src={inviteP7Webp}
                 alt="Special Invitees official invitation artwork"
                 width="1600"
                 height="1131"
                 loading="lazy"
+                decoding="async"
               />
             </picture>
           </div>

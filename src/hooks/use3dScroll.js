@@ -18,29 +18,23 @@ export function use3dScroll() {
           }
         });
       },
-      { rootMargin: "0px 0px 80px 0px", threshold: 0.01 }
+      { rootMargin: "0px 0px 100px 0px", threshold: 0.01 }
     );
 
     if (prefersReducedMotion) {
       revealElements.forEach((el) => el.classList.add("is-visible"));
-    } else {
-      document.documentElement.classList.add("js-reveal");
-      revealElements.forEach((el) => {
-        // Immediately reveal elements already near or within the viewport
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight + 100) {
-          el.classList.add("is-visible");
-        } else {
-          observer.observe(el);
-        }
-      });
-    }
-
-    if (prefersReducedMotion) {
       return () => observer.disconnect();
     }
 
-    // 2. Physics & 3D Parallax with Zero Layout Thrashing
+    document.documentElement.classList.add("js-reveal");
+    revealElements.forEach((el) => observer.observe(el));
+
+    // If mobile or coarse pointer, scroll reveals are enough; bypass desktop 3D/mouse loops
+    if (isCoarse) {
+      return () => observer.disconnect();
+    }
+
+    // 2. Desktop-Only Physics & 3D Parallax with Zero Forced Reflows
     let targetScrollY = window.scrollY || 0;
     let currentScrollY = window.scrollY || 0;
     let targetMouseX = 0;
@@ -73,8 +67,8 @@ export function use3dScroll() {
       });
     }
 
-    // Measure initially after render
-    measureLayout();
+    // Defer initial layout measurement until after browser idle/render to avoid blocking FCP/LCP
+    const initTimer = setTimeout(measureLayout, 150);
 
     function lerp(start, end, factor) {
       return start + (end - start) * factor;
@@ -197,6 +191,7 @@ export function use3dScroll() {
     return () => {
       observer.disconnect();
       if (rafId) cancelAnimationFrame(rafId);
+      clearTimeout(initTimer);
       clearTimeout(resizeTimer);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("mousemove", onPointerMove);

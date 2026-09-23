@@ -1,11 +1,11 @@
 import React from "react";
 import { Phone, Calendar, Clock, MessageCircle, Utensils } from "lucide-react";
-import inviteP6 from "../assets/invite-p6.jpg";
 import inviteP6Webp from "../assets/invite-p6.webp";
+import inviteP6Sm from "../assets/invite-p6-sm.webp";
 
 export default function VendorMeet() {
   const gcalUrl =
-    "https://calendar.google.com/calendar/render?action=TEMPLATE&text=BSC+Shivamogga+-+Vendor+Meet&dates=20261013T050000Z/20261013T090000Z&details=BSC+Shivamogga+Vendors+Meet.+Followed+by+Function+%26+Lunch.+Kindly+RSVP+at+9900014212%2C+9900014214.&location=Parekh+Vinayaka+Mall%2C+BH+Road%2C+Shivamogga";
+    "https://calendar.google.com/calendar/render?action=TEMPLATE&text=BSC+Shivamogga+-+Vendor+Meet&dates=20261013T050000Z/20261013T090000Z&details=BSC+Shivamogga+Vendors+Meet.+Followed+by+Function+%26+Lunch.+Kindly+RSVP+at+9900014212%2C+9900014214.&location=Parekh+Vinayaka Mall%2C+BH+Road%2C+Shivamogga";
 
   const whatsappUrl =
     "https://wa.me/919900014212?text=Greetings%20BSC%2C%20I%20would%20like%20to%20confirm%20my%20attendance%20for%20the%20Vendor%20Meet%20on%2013th%20October%202026.";
@@ -93,13 +93,18 @@ export default function VendorMeet() {
           <div className="event-art" data-reveal>
             <div className="invite-frame">
               <picture>
-                <source srcSet={inviteP6Webp} type="image/webp" />
+                <source
+                  type="image/webp"
+                  srcSet={`${inviteP6Sm} 768w, ${inviteP6Webp} 1200w`}
+                  sizes="(max-width: 768px) 92vw, (max-width: 1200px) 46vw, 560px"
+                />
                 <img
-                  src={inviteP6}
+                  src={inviteP6Webp}
                   alt="Shivamogga Vendors Meet invitation on Tuesday, 13 October 2026, 10:30 AM onwards followed by function and lunch"
                   width="1600"
                   height="1131"
                   loading="lazy"
+                  decoding="async"
                 />
               </picture>
             </div>

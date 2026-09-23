@@ -1,6 +1,7 @@
 import React from "react";
 import { ExternalLink } from "lucide-react";
 import qrLocation from "../assets/qr-location.png";
+import qrLocationWebp from "../assets/qr-location.webp";
 
 export default function VenueMap() {
   const mapUrl = "https://www.canvaqr.com/RGS6_7gEBf";
@@ -22,7 +23,7 @@ export default function VenueMap() {
                 href={mapUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Open Parekh Vinayaka Mall on Google Maps (opens in new tab)"
+                aria-label="Open Shivamogga showroom location on Google Maps"
               >
                 <span>Open in Google Maps</span>
                 <ExternalLink size={14} className="btn-external-icon" aria-hidden="true" />
@@ -36,16 +37,20 @@ export default function VenueMap() {
               href={mapUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Scan or tap for Parekh Vinayaka Mall location on Google Maps"
+              aria-label="Open Shivamogga showroom location on Google Maps"
             >
               <div className="qr-inner-frame">
-                <img
-                  src={qrLocation}
-                  alt="QR code for Parekh Vinayaka Mall Location"
-                  width="220"
-                  height="220"
-                  loading="lazy"
-                />
+                <picture>
+                  <source srcSet={qrLocationWebp} type="image/webp" />
+                  <img
+                    src={qrLocation}
+                    alt="QR code for Parekh Vinayaka Mall Location"
+                    width="220"
+                    height="220"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
               </div>
               <span className="qr-caption">Scan for Mall Location</span>
             </a>

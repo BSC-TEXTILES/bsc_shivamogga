@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import bscLogo from "../assets/bsc-logo-crop.png";
+import bscLogo from "../assets/bsc-logo-crop.webp";
 
 const NAV_ITEMS = [
   { label: "Legacy", href: "#legacy" },
@@ -19,24 +19,29 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
       const scrollY = window.scrollY || 0;
       setIsScrolled(scrollY > 40);
 
-      const triggerY = scrollY + window.innerHeight * 0.35;
-      let currentId = "hero";
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const triggerY = scrollY + 120;
+          let currentId = "hero";
 
-      NAV_ITEMS.forEach((item) => {
-        const id = item.href.replace("#", "");
-        const el = document.getElementById(id);
-        if (el) {
-          const top = el.getBoundingClientRect().top + scrollY;
-          if (triggerY >= top) {
-            currentId = id;
+          for (let i = 0; i < NAV_ITEMS.length; i++) {
+            const id = NAV_ITEMS[i].href.replace("#", "");
+            const el = document.getElementById(id);
+            if (el && el.offsetTop <= triggerY) {
+              currentId = id;
+            }
           }
-        }
-      });
-      setActiveSection(currentId);
+          setActiveSection(currentId);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     handleScroll();

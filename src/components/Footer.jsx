@@ -1,5 +1,5 @@
 import React from "react";
-import bscLogo from "../assets/bsc-logo-crop.png";
+import bscLogo from "../assets/bsc-logo-crop.webp";
 
 export default function Footer() {
   return (
@@ -12,6 +12,7 @@ export default function Footer() {
             width="120"
             height="66"
             loading="lazy"
+            decoding="async"
           />
           <p className="brand-legacy-text">Established 1938 · Five-Generation Legacy</p>
           <p className="brand-subtext">Davanagere · Belagavi · Shivamogga</p>
@@ -28,11 +29,11 @@ export default function Footer() {
         <div className="footer-rsvp">
           <p className="rsvp-label">RSVP Contacts</p>
           <p className="rsvp-numbers">
-            <a href="tel:+919900014212" aria-label="Call 99000 14212">
+            <a href="tel:+919900014212" aria-label="Call RSVP contact 99000 14212">
               99000 14212
             </a>
             <span className="rsvp-dot" aria-hidden="true">·</span>
-            <a href="tel:+919900014214" aria-label="Call 99000 14214">
+            <a href="tel:+919900014214" aria-label="Call RSVP contact 99000 14214">
               99000 14214
             </a>
           </p>
