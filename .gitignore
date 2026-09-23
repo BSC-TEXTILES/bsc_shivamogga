@@ -1,0 +1,30 @@
+# Dependencies
+node_modules
+react-app/node_modules
+
+# Production builds
+dist
+react-app/dist
+dist-ssr
+react-app/dist-ssr
+
+# Environment & local files
+.env
+.env.local
+*.local
+*-orig.*
+*-orig.png
+*-orig.jpeg
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Editor & System
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+Thumbs.db

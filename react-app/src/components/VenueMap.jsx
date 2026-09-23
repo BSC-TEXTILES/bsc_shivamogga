@@ -1,0 +1,57 @@
+import React from "react";
+import { ExternalLink } from "lucide-react";
+import qrLocation from "../assets/qr-location.png";
+
+export default function VenueMap() {
+  const mapUrl = "https://www.canvaqr.com/RGS6_7gEBf";
+
+  return (
+    <section className="section qr-section" id="qr" aria-labelledby="qr-title">
+      <div className="container">
+        <div className="qr-panel" data-reveal>
+          <div className="qr-copy">
+            <p className="eyebrow">Easy Navigation</p>
+            <h2 id="qr-title">Scan for Location</h2>
+            <span className="rule" aria-hidden="true" />
+            <p className="qr-description">
+              Parekh Vinayaka Mall, BH Road, Shivamogga — scan the QR code with your mobile camera or tap the button below to get direct driving directions on Google Maps.
+            </p>
+            <div className="qr-actions">
+              <a
+                className="btn btn-primary"
+                href={mapUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open Parekh Vinayaka Mall on Google Maps (opens in new tab)"
+              >
+                <span>Open in Google Maps</span>
+                <ExternalLink size={14} className="btn-external-icon" aria-hidden="true" />
+              </a>
+            </div>
+          </div>
+
+          <div className="qr-code-wrap">
+            <a
+              className="qr-link"
+              href={mapUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Scan or tap for Parekh Vinayaka Mall location on Google Maps"
+            >
+              <div className="qr-inner-frame">
+                <img
+                  src={qrLocation}
+                  alt="QR code for Parekh Vinayaka Mall Location"
+                  width="220"
+                  height="220"
+                  loading="lazy"
+                />
+              </div>
+              <span className="qr-caption">Scan for Mall Location</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
