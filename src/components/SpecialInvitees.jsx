@@ -1,5 +1,6 @@
 import React from "react";
 import inviteP7 from "../assets/invite-p7.jpg";
+import inviteP7Webp from "../assets/invite-p7.webp";
 
 export default function SpecialInvitees() {
   const column1 = [
@@ -74,13 +75,16 @@ export default function SpecialInvitees() {
 
         <div className="invitees-art" data-reveal>
           <div className="invite-frame slim">
-            <img
-              src={inviteP7}
-              alt="Special Invitees official invitation artwork"
-              width="1600"
-              height="1131"
-              loading="lazy"
-            />
+            <picture>
+              <source srcSet={inviteP7Webp} type="image/webp" />
+              <img
+                src={inviteP7}
+                alt="Special Invitees official invitation artwork"
+                width="1600"
+                height="1131"
+                loading="lazy"
+              />
+            </picture>
           </div>
         </div>
       </div>

@@ -4,6 +4,7 @@ import locDavanagereWebp from "../assets/loc-davanagere.webp";
 import locShivamogga from "../assets/loc-shivamogga.jpeg";
 import locShivamoggaWebp from "../assets/loc-shivamogga.webp";
 import locBelagavi from "../assets/loc-belagavi.jpg";
+import locBelagaviWebp from "../assets/loc-belagavi.webp";
 
 export default function Locations() {
   const locations = [
@@ -29,6 +30,7 @@ export default function Locations() {
       name: "Belagavi",
       label: "The Textile Mall",
       image: locBelagavi,
+      webp: locBelagaviWebp,
       alt: "BSC Belagavi The Textile Mall showroom",
       width: 803,
       height: 570
@@ -60,7 +62,6 @@ export default function Locations() {
                     height={loc.height}
                     loading="lazy"
                     decoding="async"
-                    style={{ aspectRatio: `${loc.width} / ${loc.height}` }}
                   />
                 </picture>
               </div>

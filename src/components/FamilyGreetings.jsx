@@ -1,5 +1,6 @@
 import React from "react";
 import inviteP8 from "../assets/invite-p8.jpg";
+import inviteP8Webp from "../assets/invite-p8.webp";
 
 export default function FamilyGreetings() {
   const familyList = [
@@ -41,13 +42,16 @@ export default function FamilyGreetings() {
 
         <div className="family-art" data-reveal>
           <div className="invite-frame slim">
-            <img
-              src={inviteP8}
-              alt="With Best Compliments From invitation artwork"
-              width="1600"
-              height="1131"
-              loading="lazy"
-            />
+            <picture>
+              <source srcSet={inviteP8Webp} type="image/webp" />
+              <img
+                src={inviteP8}
+                alt="With Best Compliments From invitation artwork"
+                width="1600"
+                height="1131"
+                loading="lazy"
+              />
+            </picture>
           </div>
         </div>
       </div>

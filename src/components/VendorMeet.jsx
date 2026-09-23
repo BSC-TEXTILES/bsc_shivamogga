@@ -1,6 +1,7 @@
 import React from "react";
 import { Phone, Calendar, Clock, MessageCircle, Utensils } from "lucide-react";
 import inviteP6 from "../assets/invite-p6.jpg";
+import inviteP6Webp from "../assets/invite-p6.webp";
 
 export default function VendorMeet() {
   const gcalUrl =
@@ -91,13 +92,16 @@ export default function VendorMeet() {
 
           <div className="event-art" data-reveal>
             <div className="invite-frame">
-              <img
-                src={inviteP6}
-                alt="Shivamogga Vendors Meet invitation on Tuesday, 13 October 2026, 10:30 AM onwards followed by function and lunch"
-                width="1600"
-                height="1131"
-                loading="lazy"
-              />
+              <picture>
+                <source srcSet={inviteP6Webp} type="image/webp" />
+                <img
+                  src={inviteP6}
+                  alt="Shivamogga Vendors Meet invitation on Tuesday, 13 October 2026, 10:30 AM onwards followed by function and lunch"
+                  width="1600"
+                  height="1131"
+                  loading="lazy"
+                />
+              </picture>
             </div>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import showroomPhoto from "../assets/showroom-photo.jpg";
+import showroomWebp from "../assets/showroom-photo.webp";
 
 export default function Showroom() {
   return (
@@ -16,13 +17,16 @@ export default function Showroom() {
 
         <figure className="showroom-visual" data-reveal>
           <div className="showroom-frame">
-            <img
-              src={showroomPhoto}
-              alt="BSC Textiles new showroom at Parekh Vinayaka Mall, Shivamogga"
-              width="1600"
-              height="1131"
-              loading="lazy"
-            />
+            <picture>
+              <source srcSet={showroomWebp} type="image/webp" />
+              <img
+                src={showroomPhoto}
+                alt="BSC Textiles new showroom at Parekh Vinayaka Mall, Shivamogga"
+                width="1600"
+                height="1131"
+                loading="lazy"
+              />
+            </picture>
           </div>
           <figcaption className="showroom-caption">
             <div className="caption-brand">

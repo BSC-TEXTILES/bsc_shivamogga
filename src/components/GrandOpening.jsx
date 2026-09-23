@@ -1,6 +1,7 @@
 import React from "react";
 import { ExternalLink } from "lucide-react";
 import inviteP5 from "../assets/invite-p5.jpg";
+import inviteP5Webp from "../assets/invite-p5.webp";
 
 export default function GrandOpening() {
   const dignitaries = [
@@ -24,13 +25,16 @@ export default function GrandOpening() {
         <div className="event-layout">
           <div className="event-art" data-reveal>
             <div className="invite-frame">
-              <img
-                src={inviteP5}
-                alt="Grand Opening invitation with heavenly blessings, inauguration by Shri B.S. Yediyurappa, Sri V. Somanna, and Sri Madhu Bangarappa on Monday, 12 October 2026, 10:30 AM onwards"
-                width="1600"
-                height="1131"
-                loading="lazy"
-              />
+              <picture>
+                <source srcSet={inviteP5Webp} type="image/webp" />
+                <img
+                  src={inviteP5}
+                  alt="Grand Opening invitation with heavenly blessings, inauguration by Shri B.S. Yediyurappa, Sri V. Somanna, and Sri Madhu Bangarappa on Monday, 12 October 2026, 10:30 AM onwards"
+                  width="1600"
+                  height="1131"
+                  loading="lazy"
+                />
+              </picture>
             </div>
           </div>
 
