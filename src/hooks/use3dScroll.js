@@ -39,6 +39,9 @@ export function use3dScroll() {
     const heroBg = document.querySelector(".hero-bg");
     const heroCard = document.querySelector(".hero-card");
     const heroCopy = document.querySelector(".hero-copy");
+    const depthCards = document.querySelectorAll(
+      ".invite-frame, .tilt-frame, .location-card, .leader-card, .qr-panel"
+    );
 
     function lerp(start, end, factor) {
       return start + (end - start) * factor;
@@ -79,6 +82,20 @@ export function use3dScroll() {
       }
     }
 
+    function updateDepthCards() {
+      const vh = window.innerHeight || 1;
+      const mobileFactor = isMobile ? 0.35 : 1.0;
+      depthCards.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.bottom < -80 || rect.top > vh + 80) return;
+        const progress = clamp((vh - rect.top) / (vh + rect.height), 0, 1);
+        const depth = 0.4;
+        const y = (0.5 - progress) * 48 * depth * mobileFactor;
+        const z = (0.5 - progress) * 36 * depth * mobileFactor;
+        el.style.transform = `translate3d(0, ${y.toFixed(2)}px, ${z.toFixed(2)}px)`;
+      });
+    }
+
     function renderLoop() {
       const scrollDiff = targetScrollY - currentScrollY;
       if (Math.abs(scrollDiff) > 0.1) {
@@ -98,6 +115,7 @@ export function use3dScroll() {
       }
 
       updateHero();
+      updateDepthCards();
 
       const isStillSettling =
         Math.abs(targetScrollY - currentScrollY) > 0.15 ||

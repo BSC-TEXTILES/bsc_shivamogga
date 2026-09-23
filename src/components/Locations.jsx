@@ -2,6 +2,7 @@ import React from "react";
 import locDavanagere from "../assets/loc-davanagere.png";
 import locShivamogga from "../assets/loc-shivamogga.jpeg";
 import locBelagavi from "../assets/loc-belagavi.jpg";
+import locExclusive from "../assets/loc-exclusive.jpg";
 
 export default function Locations() {
   const locations = [
@@ -11,8 +12,7 @@ export default function Locations() {
       image: locDavanagere,
       alt: "BSC Davanagere flagship showroom",
       width: 1800,
-      height: 1012,
-      highlight: false
+      height: 1012
     },
     {
       name: "Shivamogga",
@@ -20,8 +20,7 @@ export default function Locations() {
       image: locShivamogga,
       alt: "BSC Shivamogga new showroom at Parekh Vinayaka Mall",
       width: 1800,
-      height: 1633,
-      highlight: true
+      height: 1633
     },
     {
       name: "Belagavi",
@@ -29,8 +28,15 @@ export default function Locations() {
       image: locBelagavi,
       alt: "BSC Belagavi The Textile Mall showroom",
       width: 803,
-      height: 570,
-      highlight: false
+      height: 570
+    },
+    {
+      name: "BSC Exclusive",
+      label: "Exclusive Showroom",
+      image: locExclusive,
+      alt: "BSC Exclusive showroom",
+      width: 600,
+      height: 550
     }
   ];
 
@@ -48,11 +54,7 @@ export default function Locations() {
 
         <ul className="location-grid">
           {locations.map((loc) => (
-            <li
-              key={loc.name}
-              className={`location-card ${loc.highlight ? "highlight" : ""}`}
-              data-reveal
-            >
+            <li key={loc.name} className="location-card" data-reveal>
               <div className="location-media">
                 <img
                   src={loc.image}
