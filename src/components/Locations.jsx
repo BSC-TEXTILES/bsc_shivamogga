@@ -1,6 +1,7 @@
 import React from "react";
 import locDavanagere from "../assets/loc-davanagere.webp";
 import locShivamogga from "../assets/loc-shivamogga.webp";
+import locShivamoggaSm from "../assets/loc-shivamogga-sm.webp";
 import locBelagavi from "../assets/loc-belagavi.webp";
 
 import { MapPin, Clock, Phone, ExternalLink } from "lucide-react";
@@ -27,6 +28,8 @@ export default function Locations() {
       phone: "+91 99000 14214",
       mapUrl: "https://www.canvaqr.com/RGS6_7gEBf",
       image: locShivamogga,
+      srcSet: `${locShivamoggaSm} 512w, ${locShivamogga} 1024w`,
+      sizes: "(max-width: 640px) 512px, 1024px",
       alt: "BSC Shivamogga new showroom at Parekh Vinayaka Mall",
       width: 1024,
       height: 928,
@@ -69,6 +72,8 @@ export default function Locations() {
               <div className="location-media">
                 <img
                   src={loc.image}
+                  srcSet={loc.srcSet}
+                  sizes={loc.sizes}
                   alt={loc.alt}
                   width={loc.width}
                   height={loc.height}

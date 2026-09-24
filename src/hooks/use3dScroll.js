@@ -112,6 +112,39 @@ export function use3dScroll() {
       window.addEventListener("scroll", onScroll, { passive: true });
     }
 
+    // Late-mounted sections (React.lazy / DeferredSection) must join the same observers.
+    const observeNew = (el) => {
+      if (!el || el.nodeType !== 1) return;
+      const candidates = [];
+      if (el.matches?.(SECTION_SELECTOR) || el.matches?.(REVEAL_SELECTOR)) candidates.push(el);
+      el.querySelectorAll?.(SECTION_SELECTOR + "," + REVEAL_SELECTOR).forEach((n) => candidates.push(n));
+      candidates.forEach((node) => {
+        if (node.classList.contains("is-visible")) return;
+        const rect = node.getBoundingClientRect();
+        if (rect.top < vh + margin || rect.top < 0) {
+          node.classList.add("is-visible");
+          pending.delete(node);
+          return;
+        }
+        pending.add(node);
+        if (node.matches?.(SECTION_SELECTOR)) sectionReveal.observe(node);
+        else blockReveal.observe(node);
+      });
+      if (pending.size > 0) {
+        window.addEventListener("scroll", onScroll, { passive: true });
+      }
+    };
+
+    const mutationObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => observeNew(node));
+      });
+    });
+    mutationObserver.observe(document.getElementById("main") || document.body, {
+      childList: true,
+      subtree: true
+    });
+
     // Desktop-Only Physics & 3D Parallax with Zero Forced Reflows
     let cleanupParallax = null;
 
@@ -251,6 +284,7 @@ export function use3dScroll() {
       window.removeEventListener("scroll", onScroll);
       sectionReveal.disconnect();
       blockReveal.disconnect();
+      mutationObserver.disconnect();
       if (cleanupParallax) cleanupParallax();
     };
   }, []);

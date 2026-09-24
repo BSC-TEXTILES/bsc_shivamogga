@@ -1,11 +1,31 @@
 # BSC Shivamogga Grand Opening
 
-> Invitation site for the BSC Shivamogga showroom grand opening on 12 October 2026 at Parekh Vinayaka Mall, BH Road, Shivamogga.
+> Invitation site for the BSC Shivamogga showroom grand opening on 12 October 2026 at Parekh Vinayaka Mall, BH Road, Shivamogga. Established 1938. Five-generation family fashion legacy across Davanagere, Belagavi, and Shivamogga.
 
-Grand Opening: Monday, 12 October 2026, 10:30 AM onwards.
-Gala Dinner: Monday, 12 October 2026, 8:00 PM onwards at Royal Orchid, Shivamogga.
-Vendor Meet: Tuesday, 13 October 2026, 10:30 AM onwards.
+## Events
 
-Established 1938. Five-generation family fashion legacy (Davanagere, Belagavi, Shivamogga).
+- Grand Opening: Monday, 12 October 2026, 10:30 AM onwards at Parekh Vinayaka Mall, BH Road, Shivamogga
+- Gala Dinner: Monday, 12 October 2026, 8:00 PM onwards at Royal Orchid, Shivamogga
+- Vendor Meet: Tuesday, 13 October 2026, 10:30 AM onwards
 
-Phone RSVP: +91 99000 14212 / +91 99000 14214
+## Contact
+
+- Phone RSVP: +91 99000 14212 / +91 99000 14214
+- WhatsApp RSVP: https://wa.me/919900014212
+
+## Pages
+
+- [Home](https://bsc-shivamogga.vercel.app/): Main invitation and Grand Opening overview
+- [Grand Opening](https://bsc-shivamogga.vercel.app/#opening): Inauguration ceremony details and dignitaries
+- [Gala Dinner](https://bsc-shivamogga.vercel.app/#gala): Evening gala dinner programme
+- [Vendor Meet](https://bsc-shivamogga.vercel.app/#vendors): Vendor meeting schedule
+- [Special Invitees](https://bsc-shivamogga.vercel.app/#invitees): Honoured guests and dignitaries
+- [Family Greetings](https://bsc-shivamogga.vercel.app/#family): Best compliments from the family
+- [Showrooms](https://bsc-shivamogga.vercel.app/#locations): BSC showroom locations in Karnataka
+- [Venue Map](https://bsc-shivamogga.vercel.app/#qr): QR code and Google Maps directions
+
+## Additional
+
+- [llms.txt](https://bsc-shivamogga.vercel.app/llms.txt): This summary for AI agents
+- [Robots](https://bsc-shivamogga.vercel.app/robots.txt): Crawl directives
+- [Sitemap](https://bsc-shivamogga.vercel.app/sitemap.xml): Site structure for search engines

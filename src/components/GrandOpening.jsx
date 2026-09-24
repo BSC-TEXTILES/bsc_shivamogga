@@ -1,9 +1,7 @@
 import React from "react";
 import { Calendar, Clock, MapPin, ExternalLink, Sparkles } from "lucide-react";
 import floralLeftWebp from "../assets/floral-left.webp";
-import floralLeftPng from "../assets/floral-left.png";
 import floralRightWebp from "../assets/floral-right.webp";
-import floralRightPng from "../assets/floral-right.png";
 
 export default function GrandOpening() {
   const dignitaries = [
@@ -34,30 +32,28 @@ export default function GrandOpening() {
       <div className="container">
         {/* Background Decorative Florals */}
         <div className="opening-floral-decor" aria-hidden="true">
-          <picture className="opening-floral opening-floral--left">
-            <source srcSet={floralLeftWebp} type="image/webp" />
-            <img
-              src={floralLeftPng}
-              alt=""
-              width="230"
-              height="631"
-              loading="lazy"
-              decoding="async"
-              draggable="false"
-            />
-          </picture>
-          <picture className="opening-floral opening-floral--right">
-            <source srcSet={floralRightWebp} type="image/webp" />
-            <img
-              src={floralRightPng}
-              alt=""
-              width="229"
-              height="628"
-              loading="lazy"
-              decoding="async"
-              draggable="false"
-            />
-          </picture>
+          <img
+            className="opening-floral opening-floral--left"
+            src={floralLeftWebp}
+            alt=""
+            width="230"
+            height="631"
+            loading="lazy"
+            decoding="async"
+            draggable="false"
+            aria-hidden="true"
+          />
+          <img
+            className="opening-floral opening-floral--right"
+            src={floralRightWebp}
+            alt=""
+            width="229"
+            height="628"
+            loading="lazy"
+            decoding="async"
+            draggable="false"
+            aria-hidden="true"
+          />
         </div>
 
         {/* Section Header */}

@@ -1,5 +1,6 @@
 import React from "react";
 import showroomWebp from "../assets/loc-shivamogga.webp";
+import showroomWebpSm from "../assets/loc-shivamogga-sm.webp";
 
 export default function Showroom() {
   return (
@@ -18,6 +19,8 @@ export default function Showroom() {
           <div className="showroom-frame">
             <img
               src={showroomWebp}
+              srcSet={`${showroomWebpSm} 512w, ${showroomWebp} 1024w`}
+              sizes="(max-width: 640px) 512px, 1024px"
               alt="BSC Exclusive new showroom at Parekh Vinayaka Mall, Shivamogga"
               width="1024"
               height="928"

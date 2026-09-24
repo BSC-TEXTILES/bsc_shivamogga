@@ -1,6 +1,5 @@
 import React from "react";
 import { ExternalLink } from "lucide-react";
-import qrLocation from "../assets/qr-location.png";
 import qrLocationWebp from "../assets/qr-location.webp";
 
 export default function VenueMap() {
@@ -40,17 +39,14 @@ export default function VenueMap() {
               aria-label="Open Shivamogga showroom location on Google Maps"
             >
               <div className="qr-inner-frame">
-                <picture>
-                  <source srcSet={qrLocationWebp} type="image/webp" />
-                  <img
-                    src={qrLocation}
-                    alt="High-resolution QR code for Parekh Vinayaka Mall Shivamogga Location"
-                    width="260"
-                    height="260"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </picture>
+                <img
+                  src={qrLocationWebp}
+                  alt="High-resolution QR code for Parekh Vinayaka Mall Shivamogga Location"
+                  width="260"
+                  height="260"
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
               <span className="qr-caption">SCAN FOR LOCATION</span>
             </a>

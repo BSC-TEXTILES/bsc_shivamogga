@@ -115,10 +115,24 @@
       color: #F5EBDD;
     }
     .fp .fp-gold { color: #D8BE85; font-size: 0.85rem; letter-spacing: 0.18em; text-transform: uppercase; }
+    .fp .fp-card {
+      margin: 1.25rem auto 0;
+      width: min(100%, 420px);
+      aspect-ratio: 1492 / 1054;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+    }
+    .fp .fp-card img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   </style>
 </head>
 <body>
-  <!-- Static shell paints immediately (FCP); React replaces it on mount -->
+  <!-- Static shell paints immediately (FCP + LCP image); React replaces it on mount -->
   <div id="root">
     <div class="fp">
       <div>
@@ -127,6 +141,20 @@
         <p>Grand Opening Celebration</p>
         <p>Monday, 12 October 2026 · 10:30 AM onwards</p>
         <p>Parekh Vinayaka Mall, BH Road, Shivamogga</p>
+        <div class="fp-card">
+          <picture>
+            <source type="image/webp" media="(max-width: 768px)" srcset="/assets/invite-p1-sm.webp" />
+            <source type="image/webp" media="(min-width: 769px)" srcset="/assets/invite-p1.webp" />
+            <img
+              src="/assets/invite-p1.webp"
+              alt="Welcome to the Grand Opening of BSC Shivamogga on Monday, 12 October 2026 at BH Road, Shivamogga"
+              width="1492"
+              height="1054"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </picture>
+        </div>
       </div>
     </div>
   </div>
