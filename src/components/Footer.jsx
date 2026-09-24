@@ -7,7 +7,7 @@ export default function Footer() {
   const mapsUrl = "https://www.canvaqr.com/RGS6_7gEBf";
 
   return (
-    <footer className="site-footer" id="footer" aria-labelledby="footer-brand-title">
+    <footer className="site-footer" id="footer" data-reveal-section aria-labelledby="footer-brand-title">
       <div className="container">
         {/* Strictly Centered BSC Branding Area (Requirement 21) */}
         <div className="footer-hero-branding" data-reveal>
@@ -76,29 +76,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 3: Collections */}
-          <div className="footer-col">
-            <h4 className="footer-col-title">Collections</h4>
-            <ul className="footer-nav-list">
-              <li>
-                <a href="#collections">Wedding &amp; Bridal Silks</a>
-              </li>
-              <li>
-                <a href="#collections">Men’s Royal Coutures &amp; Suits</a>
-              </li>
-              <li>
-                <a href="#collections">Designer &amp; Festive Sarees</a>
-              </li>
-              <li>
-                <a href="#collections">Kids &amp; Teens Festivity</a>
-              </li>
-              <li>
-                <a href="#collections">Handloom Heritage &amp; Dhotis</a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Col 4: Stores & RSVP */}
+          {/* Col 3: Stores & RSVP */}
           <div className="footer-col">
             <h4 className="footer-col-title">Showroom &amp; RSVP</h4>
             <div className="footer-contact-info">
@@ -147,7 +125,7 @@ export default function Footer() {
         <div className="footer-bottom-base">
           <div className="footer-base-inner">
             <p className="copyright-text">
-              © {new Date().getFullYear()} BSC Textiles (B.S. Channabasappa &amp; Sons). All rights reserved.
+              © {new Date().getFullYear()} BSC Textiles. All rights reserved.
             </p>
             <div className="footer-legal-links">
               <span className="legal-item">Parekh Vinayaka Mall, Shivamogga</span>

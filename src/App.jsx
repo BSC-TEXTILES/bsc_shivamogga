@@ -3,7 +3,6 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Legacy from "./components/Legacy";
 import Showroom from "./components/Showroom";
-import Collections from "./components/Collections";
 import GrandOpening from "./components/GrandOpening";
 import GalaDinner from "./components/GalaDinner";
 import VendorMeet from "./components/VendorMeet";
@@ -32,7 +31,6 @@ export default function App() {
         <Hero />
         <Legacy />
         <Showroom />
-        <Collections />
         <GrandOpening />
         <GalaDinner />
         <VendorMeet />

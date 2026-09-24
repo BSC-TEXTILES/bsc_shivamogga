@@ -20,8 +20,8 @@ export default function Locations() {
       image: locDavanagere,
       webp: locDavanagereWebp,
       alt: "BSC Davanagere flagship showroom",
-      width: 1800,
-      height: 1012
+      width: 1024,
+      height: 535
     },
     {
       name: "SHIVAMOGGA",
@@ -53,7 +53,7 @@ export default function Locations() {
   ];
 
   return (
-    <section className="section locations" id="locations" aria-labelledby="locations-title">
+    <section className="section locations" id="locations" data-reveal-section aria-labelledby="locations-title">
       <div className="container">
         <header className="section-head text-center" data-reveal>
           <p className="eyebrow">Our Presence</p>

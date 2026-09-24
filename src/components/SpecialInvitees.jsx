@@ -1,180 +1,74 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   Calendar,
   MapPin,
   ExternalLink,
   MessageCircle,
   Phone,
+  Search,
   Sparkles
 } from "lucide-react";
+import { INVITEES, FILTERS, SUMMARY } from "../data/invitees";
+import InviteeCard from "./InviteeCard";
 
-const ALL_INVITEES = [
-  {
-    name: "SHRI S. S. MALLIKARJUN",
-    role: "Hon’ble Minister, Govt. of Karnataka & MLA, Davanagere North",
-    category: "minister-mp",
-    tag: "HON'BLE MINISTER"
-  },
-  {
-    name: "SHRI B. Y. RAGHAVENDRA",
-    role: "Hon’ble Member of Parliament, Shivamogga Lok Sabha Constituency",
-    category: "minister-mp",
-    tag: "HON'BLE MP"
-  },
-  {
-    name: "SHRI BASAVARAJ BOMMAI",
-    role: "Hon’ble Member of Parliament, Haveri & Former Chief Minister of Karnataka",
-    category: "minister-mp",
-    tag: "HON'BLE MP & FORMER CM"
-  },
-  {
-    name: "SHRI G. M. SIDDESHWAR",
-    role: "Former Union Minister & Former Member of Parliament",
-    category: "minister-mp",
-    tag: "FORMER UNION MINISTER"
-  },
-  {
-    name: "SHRI K. S. ESHWARAPPA",
-    role: "Former Deputy Chief Minister, Government of Karnataka",
-    category: "minister-mp",
-    tag: "FORMER DEPUTY CM"
-  },
-  {
-    name: "SHRI M. P. RENUKACHARYA",
-    role: "Former Minister, Government of Karnataka",
-    category: "minister-mp",
-    tag: "FORMER MINISTER"
-  },
-  {
-    name: "SHRI MURUGESH R. NIRANI",
-    role: "Former Minister, Govt. of Karnataka",
-    category: "minister-mp",
-    tag: "FORMER MINISTER"
-  },
-  {
-    name: "SHRI B. Y. VIJAYENDRA",
-    role: "Hon’ble MLA, Shikaripura & State President, BJP Karnataka",
-    category: "mla-mlc",
-    tag: "HON'BLE MLA & PRESIDENT"
-  },
-  {
-    name: "SHRI S. N. CHANNABASAPPA",
-    role: "Hon’ble MLA, Shivamogga",
-    category: "mla-mlc",
-    tag: "HON'BLE MLA"
-  },
-  {
-    name: "SMT. SHARADA PURYANAIK",
-    role: "Hon’ble MLA, Shivamogga Rural",
-    category: "mla-mlc",
-    tag: "HON'BLE MLA"
-  },
-  {
-    name: "SHRI ARAGA JNANENDRA",
-    role: "Hon’ble MLA, Tirthahalli & Former Home Minister",
-    category: "mla-mlc",
-    tag: "HON'BLE MLA"
-  },
-  {
-    name: "SHRI GOPAL KRISHNA BELUR",
-    role: "Hon’ble MLA, Sagar",
-    category: "mla-mlc",
-    tag: "HON'BLE MLA"
-  },
-  {
-    name: "SHRI B. K. SANGAMESHWARA",
-    role: "Hon’ble MLA, Bhadravati",
-    category: "mla-mlc",
-    tag: "HON'BLE MLA"
-  },
-  {
-    name: "SHRI H. D. THAMMAIAH",
-    role: "Hon’ble MLA, Chikkamagaluru",
-    category: "mla-mlc",
-    tag: "HON'BLE MLA"
-  },
-  {
-    name: "SHRI D. G. SHANTHANA GOWDA",
-    role: "Hon’ble MLA, Honnali",
-    category: "mla-mlc",
-    tag: "HON'BLE MLA"
-  },
-  {
-    name: "SHRI BASAVARAJU V. SHIVAGANGA",
-    role: "Hon’ble MLA, Channagiri",
-    category: "mla-mlc",
-    tag: "HON'BLE MLA"
-  },
-  {
-    name: "SHRI MADAL VIRUPAKSHAPPA",
-    role: "Former MLA, Channagiri",
-    category: "mla-mlc",
-    tag: "FORMER MLA"
-  },
-  {
-    name: "SHRI D. S. ARUN",
-    role: "Hon’ble Member of Karnataka Legislative Council",
-    category: "mla-mlc",
-    tag: "HON'BLE MLC"
-  },
-  {
-    name: "DR. DHANANJAYA SARJI",
-    role: "Hon’ble Member of Karnataka Legislative Council",
-    category: "mla-mlc",
-    tag: "HON'BLE MLC"
-  },
-  {
-    name: "SHRI C. T. RAVI",
-    role: "Hon’ble Member of Karnataka Legislative Council",
-    category: "mla-mlc",
-    tag: "HON'BLE MLC"
-  },
-  {
-    name: "DR. PRABHAKAR KORE",
-    role: "Chairman, KLE Society & Former Member of Parliament",
-    category: "prominent",
-    tag: "CHAIRMAN & FORMER MP"
-  },
-  {
-    name: "DR. VIJAY SANKESHWAR",
-    role: "Chairman & Managing Director, VRL Group & Former MP",
-    category: "prominent",
-    tag: "CMD & FORMER MP"
-  },
-  {
-    name: "SHRI K. MAYANNA GOWDA",
-    role: "Hon’ble Mayor, Shivamogga City Corporation",
-    category: "prominent",
-    tag: "HON'BLE MAYOR"
-  }
-];
-
-const CATEGORIES = [
-  { id: "all", label: "ALL DIGNITARIES", count: ALL_INVITEES.length },
-  {
-    id: "minister-mp",
-    label: "MINISTERS & MPS",
-    count: ALL_INVITEES.filter((i) => i.category === "minister-mp").length
-  },
-  {
-    id: "mla-mlc",
-    label: "MLAS & MLCS",
-    count: ALL_INVITEES.filter((i) => i.category === "mla-mlc").length
-  },
-  {
-    id: "prominent",
-    label: "PROMINENT LEADERS",
-    count: ALL_INVITEES.filter((i) => i.category === "prominent").length
-  }
-];
+function matchesQuery(invitee, query) {
+  if (!query) return true;
+  const haystack = [
+    invitee.name,
+    invitee.designation,
+    invitee.description,
+    invitee.category,
+    invitee.type,
+    invitee.group
+  ]
+    .join(" ")
+    .toLowerCase();
+  return haystack.includes(query);
+}
 
 export default function SpecialInvitees() {
-  const [activeTab, setActiveTab] = useState("all");
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [query, setQuery] = useState("");
+  const gridShellRef = useRef(null);
 
-  const filteredInvitees =
-    activeTab === "all"
-      ? ALL_INVITEES
-      : ALL_INVITEES.filter((item) => item.category === activeTab);
+  const [phase, setPhase] = useState(() => {
+    if (typeof window === "undefined") return "ready";
+    if (!("IntersectionObserver" in window)) return "ready";
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return "ready";
+    return "pending";
+  });
+
+  useEffect(() => {
+    if (phase !== "pending") return undefined;
+    const el = gridShellRef.current;
+    if (!el) return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setPhase("ready");
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "0px 0px -30px 0px", threshold: 0.05 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [phase]);
+
+  const normalizedQuery = query.trim().toLowerCase();
+
+  const filteredInvitees = useMemo(() => {
+    let list = INVITEES;
+    if (activeFilter !== "all") {
+      list = list.filter((invitee) => invitee.tags.includes(activeFilter));
+    }
+    if (normalizedQuery) {
+      list = list.filter((invitee) => matchesQuery(invitee, normalizedQuery));
+    }
+    return list;
+  }, [activeFilter, normalizedQuery]);
 
   const whatsappUrl =
     "https://wa.me/919900014212?text=Greetings%20BSC%2C%20inquiring%20about%20the%20Grand%20Opening%20ceremony%20and%20Special%20Invitees.";
@@ -182,7 +76,7 @@ export default function SpecialInvitees() {
   const mapsUrl = "https://www.canvaqr.com/RGS6_7gEBf";
 
   return (
-    <section className="section invitees" id="invitees" aria-labelledby="invitees-title">
+    <section className="section invitees" id="invitees" data-reveal-section aria-labelledby="invitees-title">
       <div className="container">
         <header className="section-head text-center" data-reveal>
           <div className="badge-heritage badge-center">
@@ -198,39 +92,78 @@ export default function SpecialInvitees() {
           </p>
         </header>
 
-        {/* Interactive Filter Actions */}
-        <div className="invitees-filter-bar" data-reveal>
-          <div className="filter-pills" role="tablist" aria-label="Filter Special Invitees">
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat.id}
-                type="button"
-                role="tab"
-                aria-selected={activeTab === cat.id}
-                className={`filter-pill ${activeTab === cat.id ? "is-active" : ""}`}
-                onClick={() => setActiveTab(cat.id)}
-              >
-                <span>{cat.label}</span>
-                <span className="pill-badge">{cat.count}</span>
-              </button>
-            ))}
+        <dl className="invitees-summary" data-reveal>
+          {SUMMARY.map((item) => (
+            <div key={item.id} className="summary-cell">
+              <dt className="summary-label">{item.label}</dt>
+              <dd className="summary-value">{item.count}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <div className="invitees-controls" data-reveal style={{ transitionDelay: "120ms" }}>
+          <div className="invitees-search-wrap">
+            <label className="invitees-search-label" htmlFor="invitees-search">
+              Search invitees
+            </label>
+            <div className="invitees-search-field">
+              <Search size={16} className="invitees-search-icon" aria-hidden="true" />
+              <input
+                id="invitees-search"
+                className="invitees-search-input"
+                type="search"
+                placeholder="Search invitees…"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                autoComplete="off"
+                spellCheck="false"
+              />
+            </div>
+          </div>
+
+          <div className="invitees-filter-bar">
+            <div className="filter-pills" role="group" aria-label="Filter Special Invitees">
+              {FILTERS.map((filter) => (
+                <button
+                  key={filter.id}
+                  type="button"
+                  aria-pressed={activeFilter === filter.id}
+                  className={`filter-pill ${activeFilter === filter.id ? "is-active" : ""}`}
+                  onClick={() => setActiveFilter(filter.id)}
+                >
+                  <span>{filter.label}</span>
+                  <span className="pill-badge">{filter.count}</span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Uniform Dignitary Cards Grid */}
-        <div className="invitees-uniform-grid" data-reveal>
-          {filteredInvitees.map((item) => (
-            <div key={item.name} className="invitee-uniform-card">
-              <div className="invitee-card-header">
-                <span className="invitee-badge">{item.tag}</span>
-              </div>
-              <strong className="invitee-name">{item.name}</strong>
-              <p className="invitee-role">{item.role}</p>
-            </div>
-          ))}
+        {filteredInvitees.length > 0 && (
+          <p className="invitees-result-count" role="status" aria-live="polite">
+            {filteredInvitees.length === INVITEES.length
+              ? `Showing all ${INVITEES.length} invitees`
+              : `${filteredInvitees.length} invitee${filteredInvitees.length === 1 ? "" : "s"} found`}
+          </p>
+        )}
+
+        <div className="invitees-grid-shell" ref={gridShellRef}>
+          <div
+            className={`invitees-uniform-grid ${phase === "ready" ? "is-ready" : "is-pending"}`}
+            key={activeFilter}
+          >
+            {filteredInvitees.map((item, idx) => (
+              <InviteeCard key={item.name} invitee={item} index={idx} />
+            ))}
+          </div>
+
+          {filteredInvitees.length === 0 && (
+            <p className="invitees-empty" role="status">
+              No invitees found.
+            </p>
+          )}
         </div>
 
-        {/* Section Action Hub */}
         <div className="invitees-actions-hub" data-reveal>
           <div className="invitees-actions-header">
             <Sparkles size={16} className="sparkle-gold" aria-hidden="true" />

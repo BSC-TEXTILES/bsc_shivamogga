@@ -12,7 +12,7 @@ export default function VendorMeet() {
   const mapUrl = "https://www.canvaqr.com/RGS6_7gEBf";
 
   return (
-    <section className="section vendors" id="vendors" aria-labelledby="vendors-title">
+    <section className="section vendors" id="vendors" data-reveal-section aria-labelledby="vendors-title">
       <div className="container narrow">
         <header className="section-head text-center" data-reveal>
           <div className="badge-heritage badge-center">
@@ -35,6 +35,8 @@ export default function VendorMeet() {
               alt="BSC Exclusive Logo"
               width="80"
               height="53"
+              loading="lazy"
+              decoding="async"
               className="vendor-brand-logo"
             />
             <p className="vendor-card-subtitle">

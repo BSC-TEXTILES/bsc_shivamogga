@@ -7,7 +7,7 @@ export default function VenueMap() {
   const mapUrl = "https://www.canvaqr.com/RGS6_7gEBf";
 
   return (
-    <section className="section qr-section" id="qr" aria-labelledby="qr-title">
+    <section className="section qr-section" id="qr" data-reveal-section aria-labelledby="qr-title">
       <div className="container">
         <div className="qr-panel" data-reveal>
           <div className="qr-copy">

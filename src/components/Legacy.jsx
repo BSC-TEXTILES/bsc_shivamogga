@@ -87,7 +87,7 @@ export default function Legacy() {
   ];
 
   return (
-    <section className="section legacy" id="legacy" aria-labelledby="legacy-title">
+    <section className="section legacy" id="legacy" data-reveal-section aria-labelledby="legacy-title">
       <div className="container">
         <header className="section-head" data-reveal>
           <p className="eyebrow">Since 1938</p>

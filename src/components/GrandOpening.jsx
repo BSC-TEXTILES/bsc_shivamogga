@@ -34,7 +34,7 @@ export default function GrandOpening() {
     "https://calendar.google.com/calendar/render?action=TEMPLATE&text=BSC+Shivamogga+-+Grand+Opening&dates=20261012T050000Z/20261012T163000Z&details=Grand+Opening+celebration+of+BSC+Shivamogga+at+Parekh+Vinayaka+Mall%2C+BH+Road%2C+Shivamogga.&location=Parekh+Vinayaka+Mall%2C+BH+Road%2C+Shivamogga";
 
   return (
-    <section className="section opening" id="opening" aria-labelledby="opening-title">
+    <section className="section opening" id="opening" data-reveal-section aria-labelledby="opening-title">
       <div className="container narrow">
         <div className="opening-floral-decor" aria-hidden="true">
           <picture className="opening-floral opening-floral--left">
@@ -107,21 +107,21 @@ export default function GrandOpening() {
           </div>
 
           <dl className="event-facts centered opening-facts">
-            <div className="fact-card">
+            <div className="fact-card" data-reveal>
               <dt>
                 <Calendar size={15} className="fact-icon" aria-hidden="true" />
                 <span>Date</span>
               </dt>
               <dd>Monday, 12<sup>th</sup> October 2026</dd>
             </div>
-            <div className="fact-card">
+            <div className="fact-card" data-reveal>
               <dt>
                 <Clock size={15} className="fact-icon" aria-hidden="true" />
                 <span>Time</span>
               </dt>
               <dd>10:30 AM onwards</dd>
             </div>
-            <div className="fact-card full-span">
+            <div className="fact-card full-span" data-reveal>
               <dt>
                 <MapPin size={15} className="fact-icon" aria-hidden="true" />
                 <span>Venue</span>

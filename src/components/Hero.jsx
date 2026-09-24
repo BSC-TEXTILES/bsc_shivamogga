@@ -5,7 +5,7 @@ const inviteP1Sm = "/assets/invite-p1-sm.webp";
 
 export default function Hero() {
   return (
-    <section className="hero" id="hero" aria-label="Grand Opening Introduction">
+    <section className="hero" id="hero" data-reveal-section="immediate" aria-label="Grand Opening Introduction">
       <div className="hero-ambient-glow" aria-hidden="true" />
 
       <div className="hero-stage" data-hero-stage>

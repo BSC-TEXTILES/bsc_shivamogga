@@ -1,10 +1,10 @@
 import React from "react";
-import showroomWebp from "../assets/showroom-photo.webp";
-import showroomWebpSm from "../assets/showroom-photo-sm.webp";
+import showroomImg from "../assets/loc-shivamogga.png";
+import showroomWebp from "../assets/loc-shivamogga.webp";
 
 export default function Showroom() {
   return (
-    <section className="section showroom" id="showroom" aria-labelledby="showroom-title">
+    <section className="section showroom" id="showroom" data-reveal-section aria-labelledby="showroom-title">
       <div className="container">
         <header className="section-head" data-reveal>
           <p className="eyebrow">A New Chapter</p>
@@ -20,14 +20,13 @@ export default function Showroom() {
             <picture>
               <source
                 type="image/webp"
-                srcSet={`${showroomWebpSm} 768w, ${showroomWebp} 1200w`}
-                sizes="(max-width: 768px) 92vw, (max-width: 1200px) 75vw, 1040px"
+                srcSet={showroomWebp}
               />
               <img
-                src={showroomWebp}
-                alt="BSC Textiles new showroom at Parekh Vinayaka Mall, Shivamogga"
-                width="1600"
-                height="1131"
+                src={showroomImg}
+                alt="BSC Exclusive new showroom at Parekh Vinayaka Mall, Shivamogga"
+                width="1800"
+                height="1633"
                 loading="lazy"
                 decoding="async"
               />
@@ -35,7 +34,7 @@ export default function Showroom() {
           </div>
           <figcaption className="showroom-caption">
             <div className="caption-brand">
-              <strong>BSC Textiles</strong>
+              <strong>BSC Exclusive</strong>
               <span className="caption-tag">Shivamogga Destination</span>
             </div>
             <div className="caption-address">

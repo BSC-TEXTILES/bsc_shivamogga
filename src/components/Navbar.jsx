@@ -5,7 +5,6 @@ import bscLogo from "../assets/bsc-logo-crop.webp";
 const NAV_ITEMS = [
   { label: "Legacy", href: "#legacy" },
   { label: "Showroom", href: "#showroom" },
-  { label: "Collections", href: "#collections" },
   { label: "Grand Opening", href: "#opening" },
   { label: "Gala Dinner", href: "#gala" },
   { label: "Vendor Meet", href: "#vendors" },
