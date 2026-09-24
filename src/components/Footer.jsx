@@ -9,12 +9,8 @@ export default function Footer() {
   return (
     <footer className="site-footer" id="footer" data-reveal-section aria-labelledby="footer-brand-title">
       <div className="container">
-        {/* Strictly Centered BSC Branding Area (Requirement 21) */}
+        {/* Strictly Centered BSC Branding Area */}
         <div className="footer-hero-branding" data-reveal>
-          <div className="footer-monogram-top">
-            <span className="monogram-text">BSC</span>
-          </div>
-
           <div className="footer-logo-center-wrapper">
             <img
               src={bscLogo}
@@ -25,10 +21,6 @@ export default function Footer() {
               decoding="async"
               className="footer-logo-img"
             />
-          </div>
-
-          <div className="footer-monogram-bottom">
-            <span className="monogram-text">BSC</span>
           </div>
 
           <p id="footer-brand-title" className="brand-legacy-title">
