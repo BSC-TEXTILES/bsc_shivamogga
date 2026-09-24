@@ -197,10 +197,10 @@ export default function SpecialInvitees() {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="RSVP and enquire via WhatsApp"
+              aria-label="RSVP via WhatsApp"
             >
               <MessageCircle size={15} aria-hidden="true" />
-              <span>WhatsApp RSVP</span>
+              <span>RSVP via WhatsApp</span>
             </a>
 
             <a

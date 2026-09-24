@@ -19,34 +19,43 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
-    let ticking = false;
+    let lastScrolled = false;
 
-    const handleScroll = () => {
-      const scrollY = window.scrollY || 0;
-      setIsScrolled(scrollY > 40);
-
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const triggerY = scrollY + 140;
-          let currentId = "hero";
-
-          for (let i = 0; i < NAV_ITEMS.length; i++) {
-            const id = NAV_ITEMS[i].href.replace("#", "");
-            const el = document.getElementById(id);
-            if (el && el.offsetTop <= triggerY) {
-              currentId = id;
-            }
-          }
-          setActiveSection(currentId);
-          ticking = false;
-        });
-        ticking = true;
+    const onScroll = () => {
+      const nextScrolled = (window.scrollY || 0) > 40;
+      if (nextScrolled !== lastScrolled) {
+        lastScrolled = nextScrolled;
+        setIsScrolled(nextScrolled);
       }
     };
 
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    // Native IntersectionObserver for active section tracking (zero forced reflow)
+    const targets = ["hero", ...NAV_ITEMS.map((item) => item.href.slice(1))]
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: "-20% 0px -70% 0px"
+      }
+    );
+
+    targets.forEach((el) => observer.observe(el));
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      observer.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -58,7 +67,6 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    // Lock page scroll only while the mobile menu overlay is open (not a nested scroller)
     if (isOpen) {
       document.body.style.overflow = "hidden";
     } else {

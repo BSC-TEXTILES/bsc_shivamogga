@@ -95,7 +95,7 @@ export default function Footer() {
                 aria-label="RSVP via WhatsApp"
               >
                 <MessageCircle size={14} aria-hidden="true" />
-                <span>WhatsApp RSVP</span>
+                <span>RSVP via WhatsApp</span>
               </a>
 
               <a

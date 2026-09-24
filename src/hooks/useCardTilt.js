@@ -17,6 +17,7 @@ export function useCardTilt(cardRef, options = {}) {
 
     let rafId = 0;
     let pending = null;
+    let cachedRect = null;
 
     const applyTilt = () => {
       rafId = 0;
@@ -29,12 +30,21 @@ export function useCardTilt(cardRef, options = {}) {
 
     const onPointerEnter = (event) => {
       if (!canTilt(event)) return;
+      cachedRect = card.getBoundingClientRect();
       card.classList.add("is-tilting");
+      window.addEventListener("scroll", invalidateRect, { passive: true, capture: true });
+    };
+
+    const invalidateRect = () => {
+      cachedRect = null;
     };
 
     const onPointerMove = (event) => {
       if (!canTilt(event)) return;
-      const rect = card.getBoundingClientRect();
+      if (!cachedRect || cachedRect.width === 0) {
+        cachedRect = card.getBoundingClientRect();
+      }
+      const rect = cachedRect;
       if (rect.width === 0 || rect.height === 0) return;
 
       const px = Math.min(Math.max((event.clientX - rect.left) / rect.width, 0), 1);
@@ -52,6 +62,8 @@ export function useCardTilt(cardRef, options = {}) {
     };
 
     const resetTilt = () => {
+      cachedRect = null;
+      window.removeEventListener("scroll", invalidateRect, { capture: true });
       card.classList.remove("is-tilting");
       card.style.setProperty("--rx", "0deg");
       card.style.setProperty("--ry", "0deg");
@@ -64,6 +76,7 @@ export function useCardTilt(cardRef, options = {}) {
 
     return () => {
       if (rafId) cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", invalidateRect, { capture: true });
       card.removeEventListener("pointerenter", onPointerEnter);
       card.removeEventListener("pointermove", onPointerMove);
       card.removeEventListener("pointerleave", resetTilt);

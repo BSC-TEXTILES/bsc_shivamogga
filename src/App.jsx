@@ -15,7 +15,7 @@ const Locations = React.lazy(() => import("./components/Locations"));
 const FamilyGreetings = React.lazy(() => import("./components/FamilyGreetings"));
 const VenueMap = React.lazy(() => import("./components/VenueMap"));
 
-function DeferredSection({ id, minHeight, index, bootstrap, children }) {
+function DeferredSection({ id, minHeight, ready, children }) {
   const ref = useRef(null);
   const [show, setShow] = useState(() => {
     if (typeof window === "undefined") return false;
@@ -41,22 +41,18 @@ function DeferredSection({ id, minHeight, index, bootstrap, children }) {
             io.disconnect();
           }
         },
-        { rootMargin: "900px 0px" }
+        { rootMargin: "600px 0px" }
       );
       io.observe(el);
     }
 
-    let timer = 0;
-    if (bootstrap) {
-      timer = window.setTimeout(reveal, index * 70);
-    }
+    if (ready) reveal();
 
     return () => {
       io?.disconnect();
-      window.clearTimeout(timer);
       window.removeEventListener("hashchange", onHash);
     };
-  }, [id, show, bootstrap, index]);
+  }, [id, show, ready]);
 
   useEffect(() => {
     if (!show) return;
@@ -69,7 +65,7 @@ function DeferredSection({ id, minHeight, index, bootstrap, children }) {
     <div
       ref={ref}
       data-deferred-section={id}
-      style={{ minHeight: show ? undefined : minHeight }}
+      style={{ minHeight }}
       aria-hidden={show ? undefined : true}
     >
       {show ? (
@@ -91,18 +87,19 @@ export default function App() {
     if (typeof window === "undefined") return true;
     return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   });
-  const [bootstrap, setBootstrap] = useState(false);
+  const [ready, setReady] = useState(false);
 
   const handleIntroComplete = useCallback(() => {
     setIntroDone(true);
   }, []);
 
+  // Mount all deferred sections in ONE batch after load (single layout pass, no stagger jumps).
   useEffect(() => {
     const start = () => {
       if (typeof window.requestIdleCallback === "function") {
-        window.requestIdleCallback(() => setBootstrap(true), { timeout: 2000 });
+        window.requestIdleCallback(() => setReady(true), { timeout: 1500 });
       } else {
-        window.setTimeout(() => setBootstrap(true), 800);
+        window.setTimeout(() => setReady(true), 400);
       }
     };
     if (document.readyState === "complete") start();
@@ -123,31 +120,31 @@ export default function App() {
 
         <main id="main" tabIndex={-1}>
           <Hero />
-          <DeferredSection id="legacy" minHeight="720px" index={0} bootstrap={bootstrap}>
+          <DeferredSection id="legacy" minHeight="720px" ready={ready}>
             <Legacy />
           </DeferredSection>
-          <DeferredSection id="showroom" minHeight="760px" index={1} bootstrap={bootstrap}>
+          <DeferredSection id="showroom" minHeight="760px" ready={ready}>
             <Showroom />
           </DeferredSection>
-          <DeferredSection id="opening" minHeight="900px" index={2} bootstrap={bootstrap}>
+          <DeferredSection id="opening" minHeight="900px" ready={ready}>
             <GrandOpening />
           </DeferredSection>
-          <DeferredSection id="gala" minHeight="780px" index={3} bootstrap={bootstrap}>
+          <DeferredSection id="gala" minHeight="780px" ready={ready}>
             <GalaDinner />
           </DeferredSection>
-          <DeferredSection id="vendors" minHeight="780px" index={4} bootstrap={bootstrap}>
+          <DeferredSection id="vendors" minHeight="780px" ready={ready}>
             <VendorMeet />
           </DeferredSection>
-          <DeferredSection id="invitees" minHeight="1400px" index={5} bootstrap={bootstrap}>
+          <DeferredSection id="invitees" minHeight="1400px" ready={ready}>
             <SpecialInvitees />
           </DeferredSection>
-          <DeferredSection id="locations" minHeight="900px" index={6} bootstrap={bootstrap}>
+          <DeferredSection id="locations" minHeight="900px" ready={ready}>
             <Locations />
           </DeferredSection>
-          <DeferredSection id="family" minHeight="720px" index={7} bootstrap={bootstrap}>
+          <DeferredSection id="family" minHeight="720px" ready={ready}>
             <FamilyGreetings />
           </DeferredSection>
-          <DeferredSection id="qr" minHeight="560px" index={8} bootstrap={bootstrap}>
+          <DeferredSection id="qr" minHeight="560px" ready={ready}>
             <VenueMap />
           </DeferredSection>
         </main>

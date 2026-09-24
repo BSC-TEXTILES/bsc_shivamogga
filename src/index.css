@@ -108,7 +108,8 @@ body {
     radial-gradient(ellipse 90% 60% at 50% -10%, rgba(216, 190, 133, 0.14), transparent),
     radial-gradient(ellipse 60% 40% at 100% 40%, rgba(90, 7, 24, 0.03), transparent),
     radial-gradient(ellipse 70% 50% at 0% 75%, rgba(216, 190, 133, 0.1), transparent);
-  background-attachment: fixed;
+  /* scroll (not fixed) — fixed attachment causes Chrome scroll jank/stutter */
+  background-attachment: scroll;
   /* Single document scroller only — do not use overflow-x: hidden here (forces overflow-y: auto) */
   overflow-x: clip;
   overflow-y: visible;
@@ -994,6 +995,8 @@ h2 {
   place-items: center;
   overflow: hidden;
   transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Block interaction with page scroll under the intro */
+  touch-action: none;
 }
 
 .door-entrance-portal.doors-opened {
@@ -2656,9 +2659,12 @@ h2 {
   box-shadow: var(--shadow-card);
   overflow: hidden;
   outline: none;
-  transform-style: preserve-3d;
+    transform-style: preserve-3d;
   transform: rotateX(var(--rx)) rotateY(var(--ry));
   transition: transform 0.45s var(--ease);
+}
+
+.invitee-3d-card.is-tilting {
   will-change: transform;
 }
 
@@ -3118,9 +3124,12 @@ h2 {
   box-shadow: var(--shadow-subtle);
   overflow: hidden;
   outline: none;
-  transform-style: preserve-3d;
+    transform-style: preserve-3d;
   transform: rotateX(var(--rx)) rotateY(var(--ry)) scale(1);
   transition: transform 0.45s var(--ease);
+}
+
+.compliment-3d-card.is-tilting {
   will-change: transform;
 }
 
@@ -3608,7 +3617,6 @@ h2 {
   transition:
     opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
 }
 
 .js-reveal [data-reveal-section].is-visible {
@@ -3640,6 +3648,13 @@ h2 {
 .section-skel {
   width: 100%;
   pointer-events: none;
+  /* Reserve space only — never scrollable */
+  contain: layout style;
+}
+
+[data-deferred-section] {
+  /* Stable scroll height while sections hydrate */
+  contain: layout style;
 }
 
 .js-reveal [data-reveal] {
@@ -3655,7 +3670,6 @@ h2 {
   transition:
     opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
 }
 
 .js-reveal [data-reveal="scale"]:not(.is-visible) {

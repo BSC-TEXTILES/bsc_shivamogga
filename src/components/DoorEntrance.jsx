@@ -39,6 +39,10 @@ export default function DoorEntrance({ onComplete }) {
   useEffect(() => {
     if (isDismissed) return undefined;
 
+    // Prevent background page scroll while intro is visible
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
     const timer = setTimeout(() => {
       handleOpen();
     }, 1200);
@@ -46,6 +50,7 @@ export default function DoorEntrance({ onComplete }) {
     return () => {
       clearTimeout(timer);
       if (dismissTimerRef.current) clearTimeout(dismissTimerRef.current);
+      document.body.style.overflow = prevOverflow;
     };
   }, [isDismissed, handleOpen]);
 

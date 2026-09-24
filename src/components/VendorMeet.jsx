@@ -128,10 +128,10 @@ export default function VendorMeet() {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="RSVP via WhatsApp to 99000 14212"
+                aria-label="RSVP via WhatsApp"
               >
                 <MessageCircle size={15} aria-hidden="true" />
-                <span>WhatsApp RSVP</span>
+                <span>RSVP via WhatsApp</span>
               </a>
 
               <a
