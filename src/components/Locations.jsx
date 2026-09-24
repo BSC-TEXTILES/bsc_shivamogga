@@ -1,10 +1,7 @@
 import React from "react";
-import locDavanagere from "../assets/loc-davanagere.png";
-import locDavanagereWebp from "../assets/loc-davanagere.webp";
-import locShivamogga from "../assets/loc-shivamogga.jpeg";
-import locShivamoggaWebp from "../assets/loc-shivamogga.webp";
-import locBelagavi from "../assets/loc-belagavi.jpg";
-import locBelagaviWebp from "../assets/loc-belagavi.webp";
+import locDavanagere from "../assets/loc-davanagere.webp";
+import locShivamogga from "../assets/loc-shivamogga.webp";
+import locBelagavi from "../assets/loc-belagavi.webp";
 
 import { MapPin, Clock, Phone, ExternalLink } from "lucide-react";
 
@@ -18,7 +15,6 @@ export default function Locations() {
       phone: "+91 99000 14212",
       mapUrl: "https://maps.google.com/?q=BSC+Textiles+Davanagere",
       image: locDavanagere,
-      webp: locDavanagereWebp,
       alt: "BSC Davanagere flagship showroom",
       width: 1024,
       height: 535
@@ -31,10 +27,9 @@ export default function Locations() {
       phone: "+91 99000 14214",
       mapUrl: "https://www.canvaqr.com/RGS6_7gEBf",
       image: locShivamogga,
-      webp: locShivamoggaWebp,
       alt: "BSC Shivamogga new showroom at Parekh Vinayaka Mall",
-      width: 1800,
-      height: 1633,
+      width: 1024,
+      height: 928,
       isHighlighted: true
     },
     {
@@ -45,7 +40,6 @@ export default function Locations() {
       phone: "+91 99000 14212",
       mapUrl: "https://maps.google.com/?q=BSC+Textiles+Belagavi",
       image: locBelagavi,
-      webp: locBelagaviWebp,
       alt: "BSC Belagavi The Textile Mall showroom",
       width: 803,
       height: 570
@@ -73,17 +67,14 @@ export default function Locations() {
               style={{ transitionDelay: `${idx * 100}ms` }}
             >
               <div className="location-media">
-                <picture>
-                  {loc.webp && <source srcSet={loc.webp} type="image/webp" />}
-                  <img
-                    src={loc.image}
-                    alt={loc.alt}
-                    width={loc.width}
-                    height={loc.height}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </picture>
+                <img
+                  src={loc.image}
+                  alt={loc.alt}
+                  width={loc.width}
+                  height={loc.height}
+                  loading="lazy"
+                  decoding="async"
+                />
                 {loc.isHighlighted && (
                   <span className="location-feature-badge">NEW OPENING</span>
                 )}
