@@ -608,15 +608,17 @@ a {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), background 0.25s;
+  transition: transform 0.22s var(--ease), box-shadow 0.22s var(--ease), background 0.22s, border-color 0.22s;
 }
 
 .btn:hover {
-  transform: translateY(-2px);
+  transform: translateY(-2.5px) scale(1.01);
+  box-shadow: 0 8px 22px rgba(90, 7, 24, 0.3);
 }
 
 .btn:active {
-  transform: translateY(0);
+  transform: translateY(1px) scale(0.985);
+  box-shadow: 0 2px 8px rgba(90, 7, 24, 0.2);
 }
 
 .btn-hero-primary {
@@ -3597,12 +3599,12 @@ h2 {
 }
 
 /* --------------------------------------------------------------------------
-   SCROLL REVEALS & CARD STAGGER ANIMATIONS
-   Progressive section-by-section reveal (data-reveal-section) +
-   inner block reveal (data-reveal). Observe-once via use3dScroll.
+   CENTRALIZED 3D ANIMATION SYSTEM
+   Scroll-based 3D reveals, progressive stagger, tactile button feedback,
+   card depth, and image depth across the entire website.
    -------------------------------------------------------------------------- */
 
-/* --- Section-level reveal: subtle 3D entrance, one section at a time --- */
+/* --- Level 1: Section-level 3D Entrance (Subtle / Medium) --- */
 [data-reveal-section] {
   opacity: 1;
   transform: none;
@@ -3611,7 +3613,7 @@ h2 {
 .js-reveal [data-reveal-section]:not([data-reveal-section="immediate"]):not(.is-visible) {
   opacity: 0;
   visibility: hidden;
-  transform: translate3d(0, 36px, 0) scale(0.985);
+  transform: perspective(1200px) translateY(36px) scale(0.985) rotateX(2.5deg);
   transform-origin: center top;
   transition:
     opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
@@ -3638,7 +3640,7 @@ h2 {
 @keyframes section-enter {
   from {
     opacity: 0;
-    transform: translate3d(0, 16px, 0);
+    transform: perspective(1200px) translateY(16px) scale(0.99) rotateX(1.5deg);
   }
   to {
     opacity: 1;
@@ -3646,14 +3648,46 @@ h2 {
   }
 }
 
-/* --- Inner block reveal --- */
+/* --- Level 2: Inner Block & Card 3D Entrance --- */
 .js-reveal [data-reveal] {
   opacity: 1;
   transform: none;
 }
 
-/* Preserve interactive hover transitions after reveal (higher specificity than hover rules) */
+.js-reveal [data-reveal]:not(.is-visible) {
+  opacity: 0;
+  visibility: hidden;
+  transform: perspective(1000px) translateY(24px) scale(0.98) rotateX(2deg);
+  transform-origin: center top;
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0s linear 0.6s;
+  will-change: opacity, transform;
+}
+
+.js-reveal [data-reveal="scale"]:not(.is-visible) {
+  opacity: 0;
+  visibility: hidden;
+  transform: perspective(1000px) scale(0.96) translateY(18px);
+}
+
+.js-reveal [data-reveal="left"]:not(.is-visible) {
+  opacity: 0;
+  visibility: hidden;
+  transform: perspective(1000px) translateX(-24px) rotateY(-2deg);
+}
+
+.js-reveal [data-reveal="right"]:not(.is-visible) {
+  opacity: 0;
+  visibility: hidden;
+  transform: perspective(1000px) translateX(24px) rotateY(2deg);
+}
+
 .js-reveal [data-reveal].is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
   transition:
     opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.35s var(--ease),
@@ -3663,106 +3697,154 @@ h2 {
     visibility 0s linear 0s;
 }
 
-.js-reveal [data-reveal]:not(.is-visible) {
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(24px);
-  transition:
-    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-    visibility 0s linear 0.6s;
+/* Text Hierarchy Cascade within Section Heads */
+.js-reveal .section-head .eyebrow[data-reveal],
+.js-reveal .section-head .badge-heritage[data-reveal] {
+  transition-delay: 0.04s;
 }
 
-.js-reveal [data-reveal="scale"]:not(.is-visible) {
-  opacity: 0;
-  visibility: hidden;
-  transform: scale(0.98) translateY(16px);
+.js-reveal .section-head h2[data-reveal],
+.js-reveal .section-head .grand-opening-title[data-reveal],
+.js-reveal .section-head .vendor-meet-title[data-reveal] {
+  transition-delay: 0.08s;
 }
 
-.js-reveal [data-reveal="left"]:not(.is-visible) {
-  opacity: 0;
-  visibility: hidden;
-  transform: translateX(-24px);
+.js-reveal .section-head .rule[data-reveal] {
+  transition-delay: 0.14s;
 }
 
-.js-reveal [data-reveal="right"]:not(.is-visible) {
-  opacity: 0;
-  visibility: hidden;
-  transform: translateX(24px);
+.js-reveal .section-head .section-intro[data-reveal] {
+  transition-delay: 0.18s;
 }
 
-.js-reveal [data-reveal].is-visible {
-  opacity: 1;
-  visibility: visible;
-  transform: none;
-  transition:
-    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-    visibility 0s linear 0s;
+/* Navigation 3D Hover Lift */
+.nav-links a {
+  display: inline-block;
+  transition: color 0.22s var(--ease), transform 0.22s var(--ease);
 }
 
-.js-reveal [data-reveal]:not(.is-visible) {
-  will-change: opacity, transform;
+.nav-links a:hover {
+  transform: translateY(-1.5px);
 }
 
-/* Hover must outrank is-visible transform:none */
-.js-reveal .location-card.is-visible:hover,
-.js-reveal .leader-card.is-visible:hover,
-.js-reveal .inauguration-card.is-visible:hover,
-.js-reveal .gala-card.is-visible:hover,
-.js-reveal .vendor-spec-card.is-visible:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-hover);
+/* --- Level 3: Card 3D Depth & Desktop Hover Interactions --- */
+@media (hover: hover) and (pointer: fine) {
+  .js-reveal .location-card.is-visible:hover,
+  .js-reveal .leader-card.is-visible:hover,
+  .js-reveal .inauguration-card.is-visible:hover,
+  .js-reveal .gala-card.is-visible:hover,
+  .js-reveal .vendor-spec-card.is-visible:hover,
+  .js-reveal .opening-event-panel.is-visible:hover,
+  .js-reveal .gala-action-panel.is-visible:hover,
+  .js-reveal .vendor-business-shell.is-visible:hover,
+  .js-reveal .qr-panel.is-visible:hover,
+  .js-reveal .showroom-frame.is-visible:hover,
+  .js-reveal .blessings-card.is-visible:hover,
+  .js-reveal .inauguration-section.is-visible:hover,
+  .location-card:hover,
+  .leader-card:hover,
+  .showroom-frame:hover,
+  .qr-panel:hover {
+    transform: perspective(1000px) translateY(-5px) scale(1.015);
+    box-shadow: var(--shadow-hover);
+  }
+
+  /* Tactile Button 3D Hover & Press States */
+  .js-reveal .btn[data-reveal].is-visible:hover,
+  .js-reveal .btn-panel-primary.is-visible:hover,
+  .js-reveal .btn-panel-secondary.is-visible:hover,
+  .js-reveal .btn-gala-phone.is-visible:hover,
+  .js-reveal .btn-vendor-action.is-visible:hover,
+  .btn:hover {
+    transform: translateY(-2.5px) scale(1.01);
+  }
+
+  .js-reveal .btn[data-reveal].is-visible:active,
+  .js-reveal .btn-panel-primary.is-visible:active,
+  .js-reveal .btn-panel-secondary.is-visible:active,
+  .js-reveal .btn-gala-phone.is-visible:active,
+  .js-reveal .btn-vendor-action.is-visible:active,
+  .btn:active {
+    transform: translateY(1px) scale(0.985);
+  }
+
+  .js-reveal .panel-data-item.is-visible:hover {
+    transform: translateX(4px);
+    border-color: var(--gold);
+  }
+
+  /* Image 3D Depth & Internal Motion inside Frames */
+  .showroom-frame img,
+  .location-media img,
+  .leader-photo img,
+  .qr-inner-frame img {
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s var(--ease);
+    will-change: transform;
+  }
+
+  .showroom-frame:hover img,
+  .location-card:hover .location-media img,
+  .leader-card:hover .leader-photo img,
+  .qr-panel:hover .qr-inner-frame img {
+    transform: scale(1.035);
+  }
 }
 
-.js-reveal .btn[data-reveal].is-visible:hover,
-.js-reveal .btn-panel-primary.is-visible:hover,
-.js-reveal .btn-panel-secondary.is-visible:hover,
-.js-reveal .btn-gala-phone.is-visible:hover,
-.js-reveal .btn-vendor-action.is-visible:hover {
-  transform: translateY(-2px);
-}
-
-.js-reveal .gala .fact-card.is-visible:hover,
-.js-reveal .opening-facts .fact-card.is-visible:hover,
-.js-reveal .panel-data-item.is-visible:hover {
-  transform: translateX(4px);
-  border-color: var(--gold);
-}
-
-/* Staggered Card Reveals (50–100ms) — delays applied when parent section/block becomes visible */
+/* Staggered Card Reveals (50–260ms) — Applied synchronously with parent section visibility */
 .js-reveal [data-reveal-section].is-visible .location-grid .location-card:nth-child(1),
 .js-reveal [data-reveal-section].is-visible .leaders .leader-card:nth-child(1),
 .js-reveal [data-reveal-section].is-visible .inauguration-grid .inauguration-card:nth-child(1),
 .js-reveal [data-reveal-section].is-visible .gala-cards-grid .gala-card:nth-child(1),
-.js-reveal [data-reveal-section].is-visible .vendor-details-trio .vendor-spec-card:nth-child(1) { transition-delay: 0.05s; }
+.js-reveal [data-reveal-section].is-visible .vendor-details-trio .vendor-spec-card:nth-child(1) {
+  transition-delay: 0.05s;
+}
 
 .js-reveal [data-reveal-section].is-visible .location-grid .location-card:nth-child(2),
 .js-reveal [data-reveal-section].is-visible .leaders .leader-card:nth-child(2),
 .js-reveal [data-reveal-section].is-visible .inauguration-grid .inauguration-card:nth-child(2),
 .js-reveal [data-reveal-section].is-visible .gala-cards-grid .gala-card:nth-child(2),
-.js-reveal [data-reveal-section].is-visible .vendor-details-trio .vendor-spec-card:nth-child(2) { transition-delay: 0.12s; }
+.js-reveal [data-reveal-section].is-visible .vendor-details-trio .vendor-spec-card:nth-child(2) {
+  transition-delay: 0.12s;
+}
 
 .js-reveal [data-reveal-section].is-visible .location-grid .location-card:nth-child(3),
 .js-reveal [data-reveal-section].is-visible .leaders .leader-card:nth-child(3),
 .js-reveal [data-reveal-section].is-visible .inauguration-grid .inauguration-card:nth-child(3),
 .js-reveal [data-reveal-section].is-visible .gala-cards-grid .gala-card:nth-child(3),
-.js-reveal [data-reveal-section].is-visible .vendor-details-trio .vendor-spec-card:nth-child(3) { transition-delay: 0.19s; }
+.js-reveal [data-reveal-section].is-visible .vendor-details-trio .vendor-spec-card:nth-child(3) {
+  transition-delay: 0.19s;
+}
 
-.js-reveal [data-reveal-section].is-visible .inauguration-grid .inauguration-card:nth-child(4) { transition-delay: 0.26s; }
+.js-reveal [data-reveal-section].is-visible .inauguration-grid .inauguration-card:nth-child(4) {
+  transition-delay: 0.26s;
+}
 
 .js-reveal [data-reveal-section].is-visible .gala-action-buttons .btn:nth-child(1),
-.js-reveal [data-reveal-section].is-visible .vendor-action-btn-group .btn:nth-child(1) { transition-delay: 0.05s; }
-.js-reveal [data-reveal-section].is-visible .gala-action-buttons .btn:nth-child(2),
-.js-reveal [data-reveal-section].is-visible .vendor-action-btn-group .btn:nth-child(2) { transition-delay: 0.1s; }
-.js-reveal [data-reveal-section].is-visible .gala-action-buttons .btn:nth-child(3),
-.js-reveal [data-reveal-section].is-visible .vendor-action-btn-group .btn:nth-child(3) { transition-delay: 0.15s; }
-.js-reveal [data-reveal-section].is-visible .gala-action-buttons .btn:nth-child(4),
-.js-reveal [data-reveal-section].is-visible .vendor-action-btn-group .btn:nth-child(4) { transition-delay: 0.2s; }
-.js-reveal [data-reveal-section].is-visible .gala-action-buttons .btn:nth-child(5),
-.js-reveal [data-reveal-section].is-visible .vendor-action-btn-group .btn:nth-child(5) { transition-delay: 0.25s; }
+.js-reveal [data-reveal-section].is-visible .vendor-action-btn-group .btn:nth-child(1) {
+  transition-delay: 0.05s;
+}
 
-/* Mobile: section reveal without 3D rotate (performance) */
+.js-reveal [data-reveal-section].is-visible .gala-action-buttons .btn:nth-child(2),
+.js-reveal [data-reveal-section].is-visible .vendor-action-btn-group .btn:nth-child(2) {
+  transition-delay: 0.1s;
+}
+
+.js-reveal [data-reveal-section].is-visible .gala-action-buttons .btn:nth-child(3),
+.js-reveal [data-reveal-section].is-visible .vendor-action-btn-group .btn:nth-child(3) {
+  transition-delay: 0.15s;
+}
+
+.js-reveal [data-reveal-section].is-visible .gala-action-buttons .btn:nth-child(4),
+.js-reveal [data-reveal-section].is-visible .vendor-action-btn-group .btn:nth-child(4) {
+  transition-delay: 0.2s;
+}
+
+.js-reveal [data-reveal-section].is-visible .gala-action-buttons .btn:nth-child(5),
+.js-reveal [data-reveal-section].is-visible .vendor-action-btn-group .btn:nth-child(5) {
+  transition-delay: 0.25s;
+}
+
+/* Mobile & Touch: Section reveal with flat translate (high-performance 60fps) */
 @media (max-width: 640px) {
   .js-reveal [data-reveal-section]:not([data-reveal-section="immediate"]):not(.is-visible) {
     transform: translateY(24px);
@@ -3789,41 +3871,16 @@ h2 {
   }
 }
 
-/* Interactive Hover Micro-Interactions */
-.js-reveal .location-card:not(.is-visible) {
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.location-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-hover);
-}
-
-.location-media img {
-  transition: transform 0.4s var(--ease), filter 0.4s var(--ease);
-}
-
-.location-card:hover .location-media img {
-  transform: scale(1.03);
-  filter: brightness(1.02);
+.location-card {
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.3s;
 }
 
 .leader-card {
   transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s;
 }
 
-.leader-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-hover);
-}
-
 .showroom-frame {
   transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
-}
-
-.showroom-frame:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-hover);
 }
 
 .qr-panel {
