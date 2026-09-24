@@ -2,7 +2,7 @@ import React, { useState, useCallback, Suspense, useRef, useEffect } from "react
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Footer from "./components/Footer";
-import DoorEntrance from "./components/DoorEntrance";
+import GrandOpeningStage from "./components/stage/GrandOpeningStage";
 import { use3dScroll } from "./hooks/use3dScroll";
 
 const Legacy = React.lazy(() => import("./components/Legacy"));
@@ -88,9 +88,29 @@ export default function App() {
     return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   });
   const [ready, setReady] = useState(false);
+  const [siteReady, setSiteReady] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return document.readyState === "complete";
+  });
 
   const handleIntroComplete = useCallback(() => {
     setIntroDone(true);
+  }, []);
+
+  // Mark site ready as soon as documents/resources settle (drives early intro exit).
+  // Only event handlers call setState — no sync setState in effect body.
+  useEffect(() => {
+    if (document.readyState === "complete") return undefined;
+    const onLoad = () => setSiteReady(true);
+    const onReady = () => {
+      if (document.readyState === "complete") setSiteReady(true);
+    };
+    window.addEventListener("load", onLoad, { once: true });
+    document.addEventListener("readystatechange", onReady);
+    return () => {
+      window.removeEventListener("load", onLoad);
+      document.removeEventListener("readystatechange", onReady);
+    };
   }, []);
 
   // Mount all deferred sections in ONE batch after load (single layout pass, no stagger jumps).
@@ -109,7 +129,7 @@ export default function App() {
 
   return (
     <div className="app-root">
-      <DoorEntrance onComplete={handleIntroComplete} />
+      <GrandOpeningStage onComplete={handleIntroComplete} siteReady={siteReady} />
 
       <div className="app-content" inert={introDone ? undefined : true}>
         <a className="skip-link" href="#main">

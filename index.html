@@ -86,18 +86,20 @@
   }
   </script>
 
-  <!-- Critical first-paint styles: guarantee FCP before JS/CSS bundles load -->
+  <!-- Critical first-paint styles: burgundy theme first frame — never a white flash -->
   <style>
-    html { background: #5A0718; overflow-x: clip; }
-    body { margin: 0; overflow-x: clip; }
-    #root { min-height: 100vh; min-height: 100dvh; }
+    html { background: #3D0610; overflow-x: clip; }
+    body { margin: 0; overflow-x: clip; background: #3D0610; }
+    #root { min-height: 100vh; min-height: 100dvh; background: #3D0610; }
     .fp {
       min-height: 100dvh;
       display: grid;
       place-items: center;
       padding: 2rem 1.25rem;
-      background: #5A0718;
-      color: #FFFDF9;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 20%, #5A0718 0%, transparent 70%),
+        linear-gradient(165deg, #5A0718 0%, #3D0610 55%, #2A040B 100%);
+      color: #F5EBDD;
       font-family: Georgia, "Times New Roman", serif;
       text-align: center;
     }

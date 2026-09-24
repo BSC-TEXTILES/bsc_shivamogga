@@ -1,6 +1,6 @@
 import React from "react";
 import { Phone, MapPin, Sparkles, MessageCircle, ExternalLink } from "lucide-react";
-import bscLogo from "../assets/bsc-logo-crop.webp";
+import bscLogo from "../assets/bsc-logo-crop.png";
 
 export default function Footer() {
   const whatsappUrl = "https://wa.me/919900014212?text=Greetings%20BSC%20Textiles%2C%20I%20would%20like%20to%20inquire.";

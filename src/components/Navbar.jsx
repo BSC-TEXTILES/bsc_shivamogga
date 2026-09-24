@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X, Sparkles } from "lucide-react";
-import bscLogo from "../assets/bsc-logo-crop.webp";
+import bscLogo from "../assets/bsc-logo-crop.png";
 
 const NAV_ITEMS = [
   { label: "Legacy", href: "#legacy" },
@@ -93,7 +93,7 @@ export default function Navbar() {
           />
           <div className="brand-text">
             <span className="brand-title">BSC SHIVAMOGGA</span>
-            <span className="brand-sub">ESTABLISHED 1938</span>
+
           </div>
         </a>
 

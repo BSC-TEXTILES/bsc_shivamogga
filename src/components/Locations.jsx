@@ -1,6 +1,6 @@
 import React from "react";
 import locDavanagere from "../assets/loc-davanagere.webp";
-import locShivamogga from "../assets/loc-shivamogga.webp";
+import locShivamogga from "../assets/loc-shivamogga.jpg";
 import locShivamoggaSm from "../assets/loc-shivamogga-sm.webp";
 import locBelagavi from "../assets/loc-belagavi.webp";
 

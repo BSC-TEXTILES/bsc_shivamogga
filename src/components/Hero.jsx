@@ -1,7 +1,7 @@
 import React from "react";
 import { Calendar, Clock, MapPin, Sparkles } from "lucide-react";
-const inviteP1Webp = "/assets/invite-p1.webp";
-const inviteP1Sm = "/assets/invite-p1-sm.webp";
+import ReadyPanel from "./ReadyPanel";
+const inviteP1 = "/assets/invite-p1.jpg";
 
 export default function Hero() {
   return (
@@ -16,7 +16,7 @@ export default function Hero() {
               <span>Established 1938 · Five-Generation Legacy</span>
             </div>
 
-            <h1 className="hero-title">BSC Shivamogga</h1>
+            <h1 className="hero-title hero-title--brand">BSC SHIVAMOGGA</h1>
             <p className="hero-subtitle">Grand Opening Celebration</p>
 
             <div className="hero-meta-card">
@@ -55,25 +55,21 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="hero-card">
-            <div className="hero-invitation-frame">
-              <picture>
-                <source
-                  type="image/webp"
-                  srcSet={`${inviteP1Sm} 768w, ${inviteP1Webp} 1200w`}
-                  sizes="(max-width: 768px) 92vw, (max-width: 1200px) 46vw, 560px"
-                />
+          <div className="hero-right-stack">
+            <div className="hero-card">
+              <div className="hero-invitation-frame">
                 <img
-                  src={inviteP1Webp}
-                  alt="Welcome to the Grand Opening of BSC Shivamogga on Monday, 12 October 2026 at BH Road, Shivamogga"
-                  width="1492"
-                  height="1054"
+                  src={inviteP1}
+                  alt="Welcome to the Grand Opening of BSC Textiles Shivamogga on Monday, 12 October 2026 at BH Road, Shivamogga"
+                  width="1024"
+                  height="724"
                   fetchPriority="high"
                   decoding="sync"
-                  style={{ aspectRatio: "1492 / 1054" }}
+                  style={{ aspectRatio: "1024 / 724" }}
                 />
-              </picture>
+              </div>
             </div>
+            <ReadyPanel />
           </div>
         </div>
       </div>
@@ -87,3 +83,4 @@ export default function Hero() {
     </section>
   );
 }
+

@@ -1,6 +1,5 @@
 import React from "react";
-import showroomWebp from "../assets/loc-shivamogga.webp";
-import showroomWebpSm from "../assets/loc-shivamogga-sm.webp";
+import showroomImg from "../assets/loc-shivamogga.jpg";
 
 export default function Showroom() {
   return (
@@ -18,12 +17,10 @@ export default function Showroom() {
         <figure className="showroom-visual" data-reveal>
           <div className="showroom-frame">
             <img
-              src={showroomWebp}
-              srcSet={`${showroomWebpSm} 512w, ${showroomWebp} 1024w`}
-              sizes="(max-width: 640px) 512px, 1024px"
-              alt="BSC Exclusive new showroom at Parekh Vinayaka Mall, Shivamogga"
+              src={showroomImg}
+              alt="BSC Textiles new showroom at Parekh Vinayaka Mall, BH Road, Shivamogga"
               width="1024"
-              height="928"
+              height="724"
               loading="lazy"
               decoding="async"
             />

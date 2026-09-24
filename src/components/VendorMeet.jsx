@@ -1,6 +1,6 @@
 import React from "react";
 import { Phone, Calendar, Clock, MessageCircle, Utensils, MapPin, ExternalLink, Sparkles } from "lucide-react";
-import bscLogo from "../assets/bsc-logo-crop.webp";
+import bscLogo from "../assets/bsc-logo-crop.png";
 
 export default function VendorMeet() {
   const gcalUrl =

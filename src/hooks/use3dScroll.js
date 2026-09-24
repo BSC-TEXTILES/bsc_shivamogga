@@ -100,93 +100,154 @@ export function use3dScroll() {
       subtree: true
     });
 
-    // Desktop hero pointer parallax only (transform/opacity). No scroll-driven physics.
+    // Desktop pointer parallax + subtle scroll depth (transform/opacity only).
+    // Scroll depth returns to identity at scrollY = 0 — no accumulated offset.
     let cleanupParallax = null;
 
-    if (!isCoarse) {
-      let targetMouseX = 0;
-      let targetMouseY = 0;
-      let currentMouseX = 0;
-      let currentMouseY = 0;
-      let isRunning = false;
-      let rafId = 0;
+    const heroEl = document.querySelector(".hero");
+    const heroCard = document.querySelector(".hero-card");
+    const heroCopy = document.querySelector(".hero-copy");
+    const heroStage = document.querySelector(".hero-stage");
 
-      const heroCard = document.querySelector(".hero-card");
-      const heroCopy = document.querySelector(".hero-copy");
+    // Entrance animation uses fill:both and would pin transform forever —
+    // release it so scroll/pointer transforms can take over (geometry unchanged).
+    let cardAnimTimer = 0;
+    const releaseCardEntrance = () => {
+      if (heroCard) heroCard.style.animation = "none";
+    };
+    if (heroCard && !prefersReducedMotion) {
+      heroCard.addEventListener("animationend", releaseCardEntrance, { once: true });
+      cardAnimTimer = window.setTimeout(releaseCardEntrance, 1500);
+    }
 
-      const clamp = (val, min, max) => (val < min ? min : val > max ? max : val);
-      const lerp = (start, end, factor) => start + (end - start) * factor;
+    let targetMouseX = 0;
+    let targetMouseY = 0;
+    let currentMouseX = 0;
+    let currentMouseY = 0;
+    let scrollDepth = 0;
+    let isRunning = false;
+    let rafId = 0;
 
-      const updateHero = () => {
-        if (heroCard) {
-          const rotXCard = currentMouseY * 3.5;
-          const rotYCard = currentMouseX * -4.0;
-          const xCard = currentMouseX * 10;
-          heroCard.style.transform = `translate3d(${xCard.toFixed(2)}px, 0px, 0px) rotateX(${rotXCard.toFixed(2)}deg) rotateY(${rotYCard.toFixed(2)}deg)`;
-        }
-        if (heroCopy) {
-          const xCopy = currentMouseX * 6;
-          heroCopy.style.transform = `translate3d(${xCopy.toFixed(2)}px, 0px, 0px)`;
-        }
-      };
+    const clamp = (val, min, max) => (val < min ? min : val > max ? max : val);
+    const lerp = (start, end, factor) => start + (end - start) * factor;
 
-      const renderLoop = () => {
-        const mxDiff = targetMouseX - currentMouseX;
-        const myDiff = targetMouseY - currentMouseY;
-        if (Math.abs(mxDiff) > 0.002 || Math.abs(myDiff) > 0.002) {
-          currentMouseX = lerp(currentMouseX, targetMouseX, 0.12);
-          currentMouseY = lerp(currentMouseY, targetMouseY, 0.12);
-        } else {
-          currentMouseX = targetMouseX;
-          currentMouseY = targetMouseY;
-        }
+    const readScrollDepth = () => {
+      if (prefersReducedMotion || !heroEl) {
+        scrollDepth = 0;
+        return;
+      }
+      const range = Math.max(heroEl.offsetHeight * 0.85, 1);
+      // 0 at page top → 1 as hero leaves; never exceeds 1 (capped movement)
+      scrollDepth = clamp((window.scrollY || 0) / range, 0, 1);
+    };
 
-        updateHero();
+    const updateHero = () => {
+      // Scroll depth: max ~16px image / ~8px copy — pure transform, layout untouched
+      const yCard = scrollDepth * 16;
+      const yCopy = scrollDepth * -8;
+      const yStage = scrollDepth * 6;
 
-        const stillSettling =
-          Math.abs(targetMouseX - currentMouseX) > 0.003 ||
-          Math.abs(targetMouseY - currentMouseY) > 0.003;
+      if (heroCard) {
+        const rotXCard = currentMouseY * 3.5;
+        const rotYCard = currentMouseX * -4.0;
+        const xCard = currentMouseX * 10;
+        heroCard.style.transform = `translate3d(${xCard.toFixed(2)}px, ${yCard.toFixed(2)}px, 0) rotateX(${rotXCard.toFixed(2)}deg) rotateY(${rotYCard.toFixed(2)}deg)`;
+      }
+      if (heroCopy) {
+        const xCopy = currentMouseX * 6;
+        heroCopy.style.transform = `translate3d(${xCopy.toFixed(2)}px, ${yCopy.toFixed(2)}px, 0)`;
+      }
+      if (heroStage) {
+        heroStage.style.transform = `translate3d(0, ${yStage.toFixed(2)}px, 0)`;
+      }
+    };
 
-        if (stillSettling) {
-          rafId = requestAnimationFrame(renderLoop);
-        } else {
-          isRunning = false;
-          rafId = 0;
-        }
-      };
+    const renderLoop = () => {
+      const mxDiff = targetMouseX - currentMouseX;
+      const myDiff = targetMouseY - currentMouseY;
+      if (Math.abs(mxDiff) > 0.002 || Math.abs(myDiff) > 0.002) {
+        currentMouseX = lerp(currentMouseX, targetMouseX, 0.12);
+        currentMouseY = lerp(currentMouseY, targetMouseY, 0.12);
+      } else {
+        currentMouseX = targetMouseX;
+        currentMouseY = targetMouseY;
+      }
 
-      const wakeLoop = () => {
-        if (!isRunning) {
-          isRunning = true;
-          rafId = requestAnimationFrame(renderLoop);
-        }
-      };
+      updateHero();
 
-      const onPointerMove = (e) => {
-        const cx = window.innerWidth / 2;
-        const cy = window.innerHeight / 2;
-        targetMouseX = clamp((e.clientX - cx) / cx, -1, 1);
-        targetMouseY = clamp((e.clientY - cy) / cy, -1, 1);
-        wakeLoop();
-      };
+      const stillSettling =
+        Math.abs(targetMouseX - currentMouseX) > 0.003 ||
+        Math.abs(targetMouseY - currentMouseY) > 0.003;
 
-      const onPointerLeave = () => {
-        targetMouseX = 0;
-        targetMouseY = 0;
-        wakeLoop();
-      };
+      if (stillSettling) {
+        rafId = requestAnimationFrame(renderLoop);
+      } else {
+        isRunning = false;
+        rafId = 0;
+      }
+    };
 
+    const wakeLoop = () => {
+      if (!isRunning) {
+        isRunning = true;
+        rafId = requestAnimationFrame(renderLoop);
+      }
+    };
+
+    const onPointerMove = (e) => {
+      if (isCoarse || prefersReducedMotion) return;
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      targetMouseX = clamp((e.clientX - cx) / cx, -1, 1);
+      targetMouseY = clamp((e.clientY - cy) / cy, -1, 1);
+      wakeLoop();
+    };
+
+    const onPointerLeave = () => {
+      if (isCoarse) return;
+      targetMouseX = 0;
+      targetMouseY = 0;
+      wakeLoop();
+    };
+
+    let lastScrollY = -1;
+    const onScroll = () => {
+      const y = window.scrollY || 0;
+      if (y === lastScrollY) return;
+      lastScrollY = y;
+      readScrollDepth();
+      // At exact top, force identity so scroll-up always returns cleanly
+      if (y <= 0) {
+        scrollDepth = 0;
+        currentMouseX = targetMouseX;
+        currentMouseY = targetMouseY;
+      }
+      wakeLoop();
+    };
+
+    if (!prefersReducedMotion) {
+      readScrollDepth();
       window.addEventListener("mousemove", onPointerMove, { passive: true });
       document.documentElement.addEventListener("mouseleave", onPointerLeave);
-
-      cleanupParallax = () => {
-        if (rafId) cancelAnimationFrame(rafId);
-        window.removeEventListener("mousemove", onPointerMove);
-        document.documentElement.removeEventListener("mouseleave", onPointerLeave);
-        if (heroCard) heroCard.style.transform = "";
-        if (heroCopy) heroCopy.style.transform = "";
-      };
+      window.addEventListener("scroll", onScroll, { passive: true });
+      // Initial paint in case page restored mid-scroll
+      if ((window.scrollY || 0) > 0) wakeLoop();
     }
+
+    cleanupParallax = () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      if (cardAnimTimer) window.clearTimeout(cardAnimTimer);
+      window.removeEventListener("mousemove", onPointerMove);
+      document.documentElement.removeEventListener("mouseleave", onPointerLeave);
+      window.removeEventListener("scroll", onScroll);
+      if (heroCard) {
+        heroCard.removeEventListener("animationend", releaseCardEntrance);
+        heroCard.style.transform = "";
+        heroCard.style.animation = "";
+      }
+      if (heroCopy) heroCopy.style.transform = "";
+      if (heroStage) heroStage.style.transform = "";
+    };
 
     return () => {
       sectionReveal.disconnect();

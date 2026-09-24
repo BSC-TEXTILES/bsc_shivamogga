@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import bscLogo from "../assets/bsc-logo-crop.webp";
+import bscLogo from "../assets/bsc-logo-crop.png";
 
 export default function DoorEntrance({ onComplete }) {
   const [isOpen, setIsOpen] = useState(() => {
