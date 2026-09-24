@@ -24,7 +24,7 @@ export default function Footer() {
           </div>
 
           <p id="footer-brand-title" className="brand-legacy-title">
-            B.S. CHANNABASAPPA &amp; SONS · ESTABLISHED 1938
+            B.S.C ESTABLISHED 1938
           </p>
           <p className="brand-legacy-sub">
             FIVE GENERATIONS OF TRUST · DAVANAGERE · BELAGAVI · SHIVAMOGGA

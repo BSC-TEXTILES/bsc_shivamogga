@@ -161,7 +161,7 @@ export default function App() {
           <DeferredSection id="locations" minHeight="900px" ready={ready}>
             <Locations />
           </DeferredSection>
-          <DeferredSection id="family" minHeight="720px" ready={ready}>
+          <DeferredSection id="family" minHeight="560px" ready={ready}>
             <FamilyGreetings />
           </DeferredSection>
           <DeferredSection id="qr" minHeight="560px" ready={ready}>

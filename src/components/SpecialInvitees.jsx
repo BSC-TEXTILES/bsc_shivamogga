@@ -5,30 +5,13 @@ import {
   ExternalLink,
   MessageCircle,
   Phone,
-  Search,
   Sparkles
 } from "lucide-react";
 import { INVITEES, FILTERS, SUMMARY } from "../data/invitees";
 import InviteeCard from "./InviteeCard";
 
-function matchesQuery(invitee, query) {
-  if (!query) return true;
-  const haystack = [
-    invitee.name,
-    invitee.designation,
-    invitee.description,
-    invitee.category,
-    invitee.type,
-    invitee.group
-  ]
-    .join(" ")
-    .toLowerCase();
-  return haystack.includes(query);
-}
-
 export default function SpecialInvitees() {
   const [activeFilter, setActiveFilter] = useState("all");
-  const [query, setQuery] = useState("");
   const gridShellRef = useRef(null);
 
   const [phase, setPhase] = useState(() => {
@@ -57,18 +40,10 @@ export default function SpecialInvitees() {
     return () => observer.disconnect();
   }, [phase]);
 
-  const normalizedQuery = query.trim().toLowerCase();
-
   const filteredInvitees = useMemo(() => {
-    let list = INVITEES;
-    if (activeFilter !== "all") {
-      list = list.filter((invitee) => invitee.tags.includes(activeFilter));
-    }
-    if (normalizedQuery) {
-      list = list.filter((invitee) => matchesQuery(invitee, normalizedQuery));
-    }
-    return list;
-  }, [activeFilter, normalizedQuery]);
+    if (activeFilter === "all") return INVITEES;
+    return INVITEES.filter((invitee) => invitee.tags.includes(activeFilter));
+  }, [activeFilter]);
 
   const whatsappUrl =
     "https://wa.me/919900014212?text=Greetings%20BSC%2C%20inquiring%20about%20the%20Grand%20Opening%20ceremony%20and%20Special%20Invitees.";
@@ -102,25 +77,6 @@ export default function SpecialInvitees() {
         </dl>
 
         <div className="invitees-controls" data-reveal style={{ transitionDelay: "120ms" }}>
-          <div className="invitees-search-wrap">
-            <label className="invitees-search-label" htmlFor="invitees-search">
-              Search invitees
-            </label>
-            <div className="invitees-search-field">
-              <Search size={16} className="invitees-search-icon" aria-hidden="true" />
-              <input
-                id="invitees-search"
-                className="invitees-search-input"
-                type="search"
-                placeholder="Search invitees…"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                autoComplete="off"
-                spellCheck="false"
-              />
-            </div>
-          </div>
-
           <div className="invitees-filter-bar">
             <div className="filter-pills" role="group" aria-label="Filter Special Invitees">
               {FILTERS.map((filter) => (

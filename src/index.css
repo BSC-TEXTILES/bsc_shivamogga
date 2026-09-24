@@ -464,7 +464,7 @@ a {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   /* Single header clearance only (header is fixed / out of flow) */
   padding: calc(var(--header-h) + clamp(1.25rem, 3vh, 2.5rem)) clamp(1.5rem, 4vw, 3.5rem) clamp(3.75rem, 6vh, 5.5rem);
@@ -555,7 +555,8 @@ a {
   width: min(100%, 1380px);
   display: grid;
   place-items: center;
-  margin: auto 0;
+  margin: 0;
+  align-self: stretch;
 }
 
 .hero-layout {
@@ -563,7 +564,7 @@ a {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.05fr);
   gap: clamp(2rem, 4.5vw, 4.5rem);
-  align-items: center;
+  align-items: start;
 }
 
 .hero-copy {
@@ -3416,7 +3417,7 @@ h2 {
 }
 
 /* --------------------------------------------------------------------------
-   BEST COMPLIMENTS SECTION (FAMILY & FRIENDS — PREMIUM CARDS)
+   BEST COMPLIMENTS SECTION (FAMILY & FRIENDS — CLASSIC LIST)
    -------------------------------------------------------------------------- */
 
 .family {
@@ -3425,228 +3426,58 @@ h2 {
   border-top: 1px solid var(--border);
 }
 
-.family-band {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: clamp(72px, 10vw, 110px);
-  background: var(--cream);
-  border-bottom: 1px solid rgba(228, 216, 200, 0.7);
-  pointer-events: none;
-  z-index: 0;
-}
-
 .family .container {
   position: relative;
   z-index: 1;
 }
 
 .family .section-head {
-  margin-bottom: clamp(1.35rem, 2.6vw, 1.9rem);
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
 }
 
-.family-heading-accent {
-  display: block;
-  width: 42px;
-  height: 3px;
-  margin: 0.7rem auto 0;
-  border-radius: 3px;
-  background: var(--primary-burgundy);
+.compliments-title {
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(2.35rem, 5.2vw, 3.75rem);
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  color: var(--compliment-gold, #a67c52);
 }
 
-.gold-divider {
-  width: 96px;
-}
-
-.compliments-grid-shell {
-  position: relative;
-}
-
-.compliments-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1rem, 1.8vw, 1.35rem);
-  align-items: stretch;
-}
-
-.compliment-card-slot {
-  position: relative;
-  min-width: 0;
-  display: flex;
-}
-
-.compliments-grid.is-pending .compliment-card-slot {
-  opacity: 0;
-}
-
-.compliments-grid.is-ready .compliment-card-slot {
-  animation: complimentSlotIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: calc(var(--i, 0) * 70ms);
-}
-
-@keyframes complimentSlotIn {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 20px, 0) scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-}
-
-.compliment-3d-stage {
-  perspective: 1000px;
-  width: 100%;
-  height: 100%;
-}
-
-.compliment-3d-card {
-  --rx: 0deg;
-  --ry: 0deg;
-  --mx: 50%;
-  --my: 50%;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  min-height: 100%;
-  background: var(--off-white);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: clamp(1.2rem, 2vw, 1.55rem) clamp(1rem, 1.8vw, 1.35rem);
-  box-shadow: var(--shadow-subtle);
-  overflow: hidden;
-  outline: none;
-    transform-style: preserve-3d;
-  transform: rotateX(var(--rx)) rotateY(var(--ry)) scale(1);
-  transition: transform 0.45s var(--ease);
-}
-
-.compliment-3d-card.is-tilting {
-  will-change: transform;
-}
-
-.compliment-3d-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--primary-burgundy), var(--dark-burgundy));
-  z-index: 2;
-}
-
-.compliment-3d-card.is-tilting {
-  transform: rotateX(var(--rx)) rotateY(var(--ry)) translateY(-6px) scale(1.015);
-  box-shadow: var(--shadow-hover), 0 18px 36px -16px rgba(176, 138, 74, 0.35);
-  border-color: rgba(176, 138, 74, 0.5);
-  transition: transform 0.12s ease-out, box-shadow 0.4s var(--ease),
-    border-color 0.35s var(--ease);
-}
-
-.compliment-3d-card.is-tilting::before {
-  background: var(--gold-gradient);
-}
-
-.compliment-3d-card:focus-visible {
-  border-color: var(--gold);
-  box-shadow: var(--shadow-hover), 0 0 0 3px rgba(176, 138, 74, 0.28);
-  transform: translateY(-4px);
-}
-
-.compliment-3d-card:focus:not(:focus-visible) {
-  border-color: rgba(176, 138, 74, 0.45);
-  box-shadow: var(--shadow-hover);
-}
-
-.compliment-card-shine {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    400px circle at var(--mx) var(--my),
-    rgba(255, 251, 244, 0.45),
-    rgba(216, 190, 133, 0.12) 36%,
-    transparent 62%
-  );
-  opacity: 0;
-  transition: opacity 0.4s var(--ease);
-}
-
-.compliment-3d-card.is-tilting .compliment-card-shine {
-  opacity: 0.55;
-}
-
-.compliment-card-inner {
-  position: relative;
-  z-index: 1;
+.compliments-list {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 54rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  gap: clamp(0.7rem, 1.3vw, 1rem);
   text-align: center;
-  height: 100%;
-  gap: 0.85rem;
-  padding: 0.15rem 0;
 }
 
-.compliment-ornament {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 56px;
-  height: 10px;
-  position: relative;
-  flex-shrink: 0;
-}
-
-.compliment-ornament::before,
-.compliment-ornament::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold));
-}
-
-.compliment-ornament::after {
-  background: linear-gradient(90deg, var(--gold), transparent);
-}
-
-.compliment-ornament-diamond {
-  width: 6px;
-  height: 6px;
-  margin: 0 5px;
-  background: var(--light-gold);
-  transform: rotate(45deg);
-  border-radius: 1px;
-  flex-shrink: 0;
-}
-
-.compliment-name {
-  margin: 0;
+.compliments-list-item {
   font-family: var(--font-display);
-  font-size: clamp(1.02rem, 1.5vw, 1.18rem);
-  font-weight: 700;
-  color: var(--text-dark);
-  line-height: 1.35;
-  letter-spacing: 0.03em;
+  font-size: clamp(1.12rem, 1.9vw, 1.45rem);
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: 0.035em;
+  color: var(--compliment-gold, #a67c52);
   text-wrap: balance;
   overflow-wrap: anywhere;
-  word-break: normal;
-  hyphens: auto;
 }
 
-.compliment-card-slot.is-long-text .compliment-name {
-  font-size: clamp(0.9rem, 1.25vw, 1rem);
-  font-weight: 600;
-  line-height: 1.4;
-  letter-spacing: 0.02em;
-  text-wrap: pretty;
+.compliments-flourish {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(1.35rem, 2.8vw, 2rem);
+  color: var(--compliment-gold, #a67c52);
+}
+
+.compliments-flourish svg {
+  width: min(240px, 70vw);
+  height: auto;
+  opacity: 0.9;
 }
 
 /* --------------------------------------------------------------------------
@@ -4320,12 +4151,12 @@ h2 {
   }
 
   .hero-copy {
-    order: 2;
+    order: 1;
     max-width: 100%;
   }
 
   .hero-right-stack {
-    order: 1;
+    order: 2;
     max-width: min(100%, 520px);
     justify-self: center;
     align-self: center;
@@ -4394,15 +4225,6 @@ h2 {
   }
 
   .invitee-3d-stage {
-    perspective: 900px;
-  }
-
-  .compliments-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.05rem;
-  }
-
-  .compliment-3d-stage {
     perspective: 900px;
   }
 
@@ -4569,20 +4391,6 @@ h2 {
     margin-inline: auto;
   }
 
-  .compliments-grid {
-    grid-template-columns: 1fr;
-    max-width: 440px;
-    margin-inline: auto;
-  }
-
-  .compliment-3d-card.is-tilting {
-    transform: none;
-  }
-
-  .compliment-3d-card.is-tilting .compliment-card-shine {
-    opacity: 0;
-  }
-
   .invitee-3d-card.is-tilting {
     transform: none;
   }
@@ -4682,22 +4490,6 @@ h2 {
   }
 
   .invitee-3d-card:focus-visible {
-    transform: none !important;
-  }
-
-  .compliment-3d-card {
-    transform: none !important;
-  }
-
-  .compliment-3d-card.is-tilting {
-    transform: none !important;
-  }
-
-  .compliment-card-shine {
-    display: none;
-  }
-
-  .compliment-3d-card:focus-visible {
     transform: none !important;
   }
 }
@@ -4844,14 +4636,6 @@ h2 {
   .rsvp-numbers {
     font-size: 1.15rem;
   }
-
-  .compliment-name {
-    font-size: 0.98rem;
-  }
-
-  .compliment-card-slot.is-long-text .compliment-name {
-    font-size: 0.88rem;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -4905,21 +4689,5 @@ h2 {
   .js-reveal .invitees-summary .summary-cell {
     opacity: 1;
     transform: none;
-  }
-
-  .compliments-grid .compliment-card-slot {
-    opacity: 1 !important;
-    transform: none !important;
-    animation: none !important;
-  }
-
-  .compliment-3d-card,
-  .compliment-3d-card.is-tilting,
-  .compliment-3d-card:focus-visible {
-    transform: none !important;
-  }
-
-  .compliment-card-shine {
-    display: none;
   }
 }
