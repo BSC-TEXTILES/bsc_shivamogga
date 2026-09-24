@@ -51,10 +51,9 @@ export function use3dScroll() {
 
     document.documentElement.classList.add("js-reveal");
 
-    // Sections: ~250px preload before entering viewport (progressive section reveal)
+    // Sections + inner blocks: ~250px preload (progressive reveal, observe-once)
     const sectionReveal = makeRevealObserver("0px 0px 250px 0px");
-    // Inner blocks: ~150px preload for staggered content inside a section
-    const blockReveal = makeRevealObserver("0px 0px 150px 0px");
+    const blockReveal = makeRevealObserver("0px 0px 250px 0px");
 
     sectionTargets.forEach((el) => sectionReveal.observe(el));
     revealTargets.forEach((el) => blockReveal.observe(el));
@@ -76,7 +75,8 @@ export function use3dScroll() {
           return;
         }
         const rect = el.getBoundingClientRect();
-        if (rect.top < 0 || rect.top < vh + margin) {
+        // Reveal only when at/near viewport or already scrolled past
+        if (rect.top < vh + margin) {
           el.classList.add("is-visible");
           sectionReveal.observer.unobserve(el);
           blockReveal.observer.unobserve(el);
@@ -84,7 +84,7 @@ export function use3dScroll() {
         }
       });
       if (pending.size === 0) {
-        window.removeEventListener("scroll", onScroll, { passive: true });
+        window.removeEventListener("scroll", onScroll);
       }
     };
 
@@ -111,7 +111,7 @@ export function use3dScroll() {
       const heroCard = document.querySelector(".hero-card");
       const heroCopy = document.querySelector(".hero-copy");
       // Depth parallax only on non-reveal elements (avoid transform conflicts with reveals)
-      const depthCards = document.querySelectorAll(".invite-frame, .leader-card");
+      const depthCards = document.querySelectorAll("[data-depth]");
 
       let vh = window.innerHeight || 800;
       let cardMetrics = [];

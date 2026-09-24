@@ -112,9 +112,9 @@ export default function Legacy() {
             </p>
           </div>
 
-          <ul className="leaders" data-reveal>
+          <ul className="leaders">
             {leaders.map((leader) => (
-              <li key={leader.name} className="leader-card">
+              <li key={leader.name} className="leader-card" data-reveal>
                 <div className="leader-photo">
                   <img
                     src={leader.image}

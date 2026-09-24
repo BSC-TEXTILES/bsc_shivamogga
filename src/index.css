@@ -706,6 +706,14 @@ a {
   scroll-margin-top: var(--header-h);
 }
 
+.hero {
+  scroll-margin-top: var(--header-h);
+}
+
+.site-footer {
+  scroll-margin-top: var(--header-h);
+}
+
 .gala + .vendors {
   padding-top: clamp(1rem, 2vw, 1.5rem);
 }
@@ -3134,7 +3142,6 @@ h2 {
   opacity: 0;
   transform: perspective(1200px) translateY(36px) rotateX(3deg) scale(0.985);
   transform-origin: center top;
-  will-change: opacity, transform;
 }
 
 .js-reveal [data-reveal-section].is-visible {
@@ -3200,33 +3207,54 @@ h2 {
   transform: none;
 }
 
-/* Staggered Card Reveals (50–100ms) */
-.js-reveal .leaders .leader-card:nth-child(1) { transition-delay: 0.05s; }
-.js-reveal .leaders .leader-card:nth-child(2) { transition-delay: 0.12s; }
-.js-reveal .leaders .leader-card:nth-child(3) { transition-delay: 0.19s; }
+.js-reveal [data-reveal]:not(.is-visible) {
+  will-change: opacity, transform;
+}
 
-.js-reveal .location-grid .location-card:nth-child(1) { transition-delay: 0.05s; }
-.js-reveal .location-grid .location-card:nth-child(2) { transition-delay: 0.12s; }
-.js-reveal .location-grid .location-card:nth-child(3) { transition-delay: 0.19s; }
+/* Hover must outrank is-visible transform:none */
+.js-reveal .location-card.is-visible:hover,
+.js-reveal .leader-card.is-visible:hover,
+.js-reveal .inauguration-card.is-visible:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
 
-.js-reveal .gala .event-facts .fact-card:nth-child(1) { transition-delay: 0.05s; }
-.js-reveal .gala .event-facts .fact-card:nth-child(2) { transition-delay: 0.1s; }
-.js-reveal .gala .event-facts .fact-card:nth-child(3) { transition-delay: 0.15s; }
+.js-reveal .btn[data-reveal].is-visible:hover {
+  transform: translateY(-2px);
+}
 
-.js-reveal .gala .gala-actions .btn:nth-child(1) { transition-delay: 0.05s; }
-.js-reveal .gala .gala-actions .btn:nth-child(2) { transition-delay: 0.1s; }
-.js-reveal .gala .gala-actions .btn:nth-child(3) { transition-delay: 0.15s; }
-.js-reveal .gala .gala-actions .btn:nth-child(4) { transition-delay: 0.2s; }
-.js-reveal .gala .gala-actions .btn:nth-child(5) { transition-delay: 0.25s; }
+.js-reveal .gala .fact-card.is-visible:hover,
+.js-reveal .opening-facts .fact-card.is-visible:hover {
+  transform: translateY(-2px);
+  border-color: var(--gold);
+}
 
-.js-reveal .inauguration-grid .inauguration-card:nth-child(1) { transition-delay: 0.05s; }
-.js-reveal .inauguration-grid .inauguration-card:nth-child(2) { transition-delay: 0.1s; }
-.js-reveal .inauguration-grid .inauguration-card:nth-child(3) { transition-delay: 0.15s; }
-.js-reveal .inauguration-grid .inauguration-card:nth-child(4) { transition-delay: 0.2s; }
+/* Staggered Card Reveals (50–100ms) — delays applied when parent section/block becomes visible */
+.js-reveal [data-reveal-section].is-visible .location-grid .location-card:nth-child(1),
+.js-reveal [data-reveal-section].is-visible .leaders .leader-card:nth-child(1),
+.js-reveal [data-reveal-section].is-visible .gala .event-facts .fact-card:nth-child(1),
+.js-reveal [data-reveal-section].is-visible .opening-facts .fact-card:nth-child(1),
+.js-reveal [data-reveal-section].is-visible .inauguration-grid .inauguration-card:nth-child(1) { transition-delay: 0.05s; }
 
-.js-reveal .opening-facts .fact-card:nth-child(1) { transition-delay: 0.05s; }
-.js-reveal .opening-facts .fact-card:nth-child(2) { transition-delay: 0.1s; }
-.js-reveal .opening-facts .fact-card:nth-child(3) { transition-delay: 0.15s; }
+.js-reveal [data-reveal-section].is-visible .location-grid .location-card:nth-child(2),
+.js-reveal [data-reveal-section].is-visible .leaders .leader-card:nth-child(2),
+.js-reveal [data-reveal-section].is-visible .gala .event-facts .fact-card:nth-child(2),
+.js-reveal [data-reveal-section].is-visible .opening-facts .fact-card:nth-child(2),
+.js-reveal [data-reveal-section].is-visible .inauguration-grid .inauguration-card:nth-child(2) { transition-delay: 0.12s; }
+
+.js-reveal [data-reveal-section].is-visible .location-grid .location-card:nth-child(3),
+.js-reveal [data-reveal-section].is-visible .leaders .leader-card:nth-child(3),
+.js-reveal [data-reveal-section].is-visible .gala .event-facts .fact-card:nth-child(3),
+.js-reveal [data-reveal-section].is-visible .opening-facts .fact-card:nth-child(3),
+.js-reveal [data-reveal-section].is-visible .inauguration-grid .inauguration-card:nth-child(3) { transition-delay: 0.19s; }
+
+.js-reveal [data-reveal-section].is-visible .inauguration-grid .inauguration-card:nth-child(4) { transition-delay: 0.26s; }
+
+.js-reveal [data-reveal-section].is-visible .gala .gala-actions .btn:nth-child(1) { transition-delay: 0.05s; }
+.js-reveal [data-reveal-section].is-visible .gala .gala-actions .btn:nth-child(2) { transition-delay: 0.1s; }
+.js-reveal [data-reveal-section].is-visible .gala .gala-actions .btn:nth-child(3) { transition-delay: 0.15s; }
+.js-reveal [data-reveal-section].is-visible .gala .gala-actions .btn:nth-child(4) { transition-delay: 0.2s; }
+.js-reveal [data-reveal-section].is-visible .gala .gala-actions .btn:nth-child(5) { transition-delay: 0.25s; }
 
 /* Mobile: section reveal without 3D rotate (performance) */
 @media (max-width: 640px) {
@@ -3255,11 +3283,7 @@ h2 {
   }
 }
 
-/* Interactive Hover Micro-Interactions (must not override reveal transitions) */
-.js-reveal .location-card.is-visible {
-  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s;
-}
-
+/* Interactive Hover Micro-Interactions */
 .js-reveal .location-card:not(.is-visible) {
   transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
