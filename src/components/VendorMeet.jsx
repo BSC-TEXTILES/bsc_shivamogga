@@ -12,8 +12,9 @@ export default function VendorMeet() {
   const mapUrl = "https://www.canvaqr.com/RGS6_7gEBf";
 
   return (
-    <section className="section vendors" id="vendors" data-reveal-section aria-labelledby="vendors-title">
-      <div className="container narrow">
+    <section className="section vendors vendors-structured" id="vendors" data-reveal-section aria-labelledby="vendors-title">
+      <div className="container">
+        {/* Section Header */}
         <header className="section-head text-center" data-reveal>
           <div className="badge-heritage badge-center">
             <Sparkles size={14} className="badge-sparkle" aria-hidden="true" />
@@ -28,101 +29,133 @@ export default function VendorMeet() {
           </p>
         </header>
 
-        <div className="vendor-invitation-card" data-reveal>
-          <div className="vendor-card-header">
-            <img
-              src={bscLogo}
-              alt="BSC Exclusive Logo"
-              width="80"
-              height="53"
-              loading="lazy"
-              decoding="async"
-              className="vendor-brand-logo"
-            />
-            <p className="vendor-card-subtitle">
-              We warmly invite you to share happiness as we move ahead to a new chapter of BSC with our new showroom
-            </p>
+        {/* Structured Business Card Shell */}
+        <div className="vendor-business-shell" data-reveal>
+          {/* Top Brand & Title Area */}
+          <div className="vendor-corporate-top" data-reveal>
+            <div className="vendor-logo-emblem">
+              <img
+                src={bscLogo}
+                alt="BSC Exclusive Logo"
+                width="84"
+                height="56"
+                loading="lazy"
+                decoding="async"
+                className="vendor-brand-logo"
+              />
+            </div>
+
+            <div className="vendor-title-stack">
+              <span className="vendor-eyebrow-tag">BSC SHIVAMOGGA VENDOR MEET</span>
+              <p className="vendor-greeting-quote">
+                “We warmly invite you to share happiness as we move ahead to a new chapter of BSC with our new showroom.”
+              </p>
+              <div className="vendor-flourish" aria-hidden="true">❦ ❦ ❦</div>
+            </div>
           </div>
 
-          <div className="vendor-card-body">
-            <h3 className="vendor-highlight-title">BSC SHIVAMOGGA VENDOR MEET</h3>
-            <span className="ornament-divider" aria-hidden="true">❦ ❦ ❦</span>
+          {/* 3 Structured Event Information Cards */}
+          <div className="vendor-details-trio">
+            {/* Card 1: Date */}
+            <div className="vendor-spec-card" data-reveal data-depth="true">
+              <div className="spec-card-icon-circle">
+                <Calendar size={22} className="spec-icon" aria-hidden="true" />
+              </div>
+              <div className="spec-card-content">
+                <span className="spec-label">EVENT DATE</span>
+                <strong className="spec-value">Tuesday, 13<sup>th</sup> Oct 2026</strong>
+                <span className="spec-note">Day Two Opening Ceremony</span>
+              </div>
+            </div>
 
-            <dl className="event-facts centered vendor-facts">
-              <div className="fact-card">
-                <dt>
-                  <Calendar size={15} className="fact-icon" aria-hidden="true" />
-                  <span>Date</span>
-                </dt>
-                <dd>Tuesday, 13<sup>th</sup> October 2026</dd>
+            {/* Card 2: Time */}
+            <div className="vendor-spec-card" data-reveal data-depth="true">
+              <div className="spec-card-icon-circle">
+                <Clock size={22} className="spec-icon" aria-hidden="true" />
               </div>
-              <div className="fact-card">
-                <dt>
-                  <Clock size={15} className="fact-icon" aria-hidden="true" />
-                  <span>Time</span>
-                </dt>
-                <dd>10:30 AM onwards</dd>
+              <div className="spec-card-content">
+                <span className="spec-label">SCHEDULE</span>
+                <strong className="spec-value">10:30 AM onwards</strong>
+                <span className="spec-note">Morning Partner Assembly</span>
               </div>
-              <div className="fact-card full-span">
-                <dt>
-                  <Utensils size={15} className="fact-icon" aria-hidden="true" />
-                  <span>Programme</span>
-                </dt>
-                <dd>Followed by Function &amp; Lunch</dd>
-              </div>
-            </dl>
+            </div>
 
-            <div className="gala-actions-wrapper vendor-rsvp-box">
-              <p className="rsvp-title">Kindly RSVP &amp; Connect</p>
-              <div className="gala-actions">
-                <a
-                  className="btn btn-gala-primary"
-                  href="tel:+919900014212"
-                  aria-label="Call RSVP contact 99000 14212"
-                >
-                  <Phone size={14} aria-hidden="true" />
-                  <span>Call 99000 14212</span>
-                </a>
-                <a
-                  className="btn btn-gala-primary"
-                  href="tel:+919900014214"
-                  aria-label="Call RSVP contact 99000 14214"
-                >
-                  <Phone size={14} aria-hidden="true" />
-                  <span>Call 99000 14214</span>
-                </a>
-                <a
-                  className="btn btn-gala-whatsapp"
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="RSVP via WhatsApp to 99000 14212"
-                >
-                  <MessageCircle size={14} aria-hidden="true" />
-                  <span>WhatsApp RSVP</span>
-                </a>
-                <a
-                  className="btn btn-gala-secondary"
-                  href={gcalUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Add Vendor Meet to Google Calendar"
-                >
-                  <Calendar size={14} aria-hidden="true" />
-                  <span>Add to Calendar</span>
-                </a>
-                <a
-                  className="btn btn-gala-secondary"
-                  href={mapUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Open Shivamogga showroom location on Google Maps"
-                >
-                  <MapPin size={14} aria-hidden="true" />
-                  <span>Location Map</span>
-                  <ExternalLink size={12} aria-hidden="true" />
-                </a>
+            {/* Card 3: Programme */}
+            <div className="vendor-spec-card" data-reveal data-depth="true">
+              <div className="spec-card-icon-circle">
+                <Utensils size={22} className="spec-icon" aria-hidden="true" />
               </div>
+              <div className="spec-card-content">
+                <span className="spec-label">PROGRAMME</span>
+                <strong className="spec-value">Function &amp; Lunch</strong>
+                <span className="spec-note">Followed by Banquet Fellowship</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Dedicated RSVP Action Bar */}
+          <div className="vendor-action-bar" data-reveal>
+            <div className="vendor-action-bar-label">
+              <span className="bar-tag">RSVP &amp; VENUE ACCESS</span>
+              <p className="bar-call-numbers">
+                Connect: <a href="tel:+919900014212" className="vendor-tel-link">99000 14212</a>
+                <span className="bar-dot">·</span>
+                <a href="tel:+919900014214" className="vendor-tel-link">99000 14214</a>
+              </p>
+            </div>
+
+            <div className="vendor-action-btn-group">
+              <a
+                className="btn btn-primary btn-vendor-action"
+                href="tel:+919900014212"
+                aria-label="Call RSVP contact 99000 14212"
+              >
+                <Phone size={15} aria-hidden="true" />
+                <span>Call 99000 14212</span>
+              </a>
+
+              <a
+                className="btn btn-primary btn-vendor-action"
+                href="tel:+919900014214"
+                aria-label="Call RSVP contact 99000 14214"
+              >
+                <Phone size={15} aria-hidden="true" />
+                <span>Call 99000 14214</span>
+              </a>
+
+              <a
+                className="btn btn-gala-whatsapp btn-vendor-action"
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="RSVP via WhatsApp to 99000 14212"
+              >
+                <MessageCircle size={15} aria-hidden="true" />
+                <span>WhatsApp RSVP</span>
+              </a>
+
+              <a
+                className="btn btn-gala-secondary btn-vendor-action"
+                href={gcalUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Add Vendor Meet to Google Calendar"
+              >
+                <Calendar size={15} aria-hidden="true" />
+                <span>Add to Calendar</span>
+              </a>
+
+              <a
+                className="btn btn-gala-secondary btn-vendor-action"
+                href={mapUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open Shivamogga showroom location on Google Maps"
+              >
+                <MapPin size={15} aria-hidden="true" />
+                <span>Location Map</span>
+                <ExternalLink size={13} aria-hidden="true" />
+              </a>
             </div>
           </div>
         </div>

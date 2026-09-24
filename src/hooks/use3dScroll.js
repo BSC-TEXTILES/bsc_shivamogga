@@ -49,34 +49,49 @@ export function use3dScroll() {
       return undefined;
     }
 
+    const vh = window.innerHeight || 800;
+    const margin = 250;
+
+    // Mark everything already on/near screen BEFORE enabling hide CSS.
+    // Guarantees first paint and in-view content are never blank.
+    const pending = new Set();
+    allTargets.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < vh + margin) {
+        el.classList.add("is-visible");
+      } else {
+        pending.add(el);
+      }
+    });
+
     document.documentElement.classList.add("js-reveal");
 
     // Sections + inner blocks: ~250px preload (progressive reveal, observe-once)
     const sectionReveal = makeRevealObserver("0px 0px 250px 0px");
     const blockReveal = makeRevealObserver("0px 0px 250px 0px");
 
-    sectionTargets.forEach((el) => sectionReveal.observe(el));
-    revealTargets.forEach((el) => blockReveal.observe(el));
+    sectionTargets.forEach((el) => {
+      if (!el.classList.contains("is-visible")) sectionReveal.observe(el);
+    });
+    revealTargets.forEach((el) => {
+      if (!el.classList.contains("is-visible")) blockReveal.observe(el);
+    });
 
     // Safety net: rAF-throttled passive scroll only while targets remain hidden.
-    // Guarantees sections never stick invisible after extreme fast jumps.
-    const pending = new Set(allTargets);
     let rafId = 0;
     let stopped = false;
 
     const flushPassed = () => {
       rafId = 0;
       if (stopped || pending.size === 0) return;
-      const vh = window.innerHeight || 800;
-      const margin = 250;
+      const height = window.innerHeight || 800;
       pending.forEach((el) => {
         if (el.classList.contains("is-visible")) {
           pending.delete(el);
           return;
         }
         const rect = el.getBoundingClientRect();
-        // Reveal only when at/near viewport or already scrolled past
-        if (rect.top < vh + margin) {
+        if (rect.top < height + margin) {
           el.classList.add("is-visible");
           sectionReveal.observer.unobserve(el);
           blockReveal.observer.unobserve(el);
@@ -93,7 +108,9 @@ export function use3dScroll() {
       rafId = requestAnimationFrame(flushPassed);
     }
 
-    window.addEventListener("scroll", onScroll, { passive: true });
+    if (pending.size > 0) {
+      window.addEventListener("scroll", onScroll, { passive: true });
+    }
 
     // Desktop-Only Physics & 3D Parallax with Zero Forced Reflows
     let cleanupParallax = null;
@@ -110,23 +127,9 @@ export function use3dScroll() {
 
       const heroCard = document.querySelector(".hero-card");
       const heroCopy = document.querySelector(".hero-copy");
-      // Depth parallax only on non-reveal elements (avoid transform conflicts with reveals)
-      const depthCards = document.querySelectorAll("[data-depth]");
-
-      let vh = window.innerHeight || 800;
-      let cardMetrics = [];
 
       function measureLayout() {
-        vh = window.innerHeight || 800;
-        const scrollY = window.scrollY || 0;
-        cardMetrics = Array.from(depthCards).map((el) => {
-          const rect = el.getBoundingClientRect();
-          return {
-            el,
-            top: rect.top + scrollY,
-            height: rect.height || 300
-          };
-        });
+        // reserved for future depth cards; hero parallax does not need metrics
       }
 
       const initTimer = setTimeout(measureLayout, 150);
@@ -141,12 +144,11 @@ export function use3dScroll() {
 
       function updateHero() {
         if (!heroCard && !heroCopy) return;
-        const pointerFactor = 1.0;
 
         if (heroCard) {
-          const rotXCard = currentMouseY * 3.5 * pointerFactor;
-          const rotYCard = currentMouseX * -4.0 * pointerFactor;
-          const xCard = currentMouseX * 10 * pointerFactor;
+          const rotXCard = currentMouseY * 3.5;
+          const rotYCard = currentMouseX * -4.0;
+          const xCard = currentMouseX * 10;
           heroCard.style.transform = `translate3d(${xCard.toFixed(2)}px, 0px, 0px) rotateX(${rotXCard.toFixed(2)}deg) rotateY(${rotYCard.toFixed(2)}deg)`;
         }
 
@@ -154,20 +156,6 @@ export function use3dScroll() {
           const xCopy = currentMouseX * 6;
           heroCopy.style.transform = `translate3d(${xCopy.toFixed(2)}px, 0px, 0px)`;
         }
-      }
-
-      function updateDepthCards() {
-        const mobileFactor = 0.4;
-        cardMetrics.forEach(({ el, top, height }) => {
-          const elTop = top - currentScrollY;
-          if (elTop + height < -80 || elTop > vh + 80) {
-            if (el.style.transform) el.style.transform = "";
-            return;
-          }
-          const progress = clamp((vh - elTop) / (vh + height), 0, 1);
-          const offset = (0.5 - progress) * 8 * mobileFactor;
-          el.style.transform = `translate3d(0, ${offset.toFixed(2)}px, 0)`;
-        });
       }
 
       function renderLoop() {
@@ -189,7 +177,6 @@ export function use3dScroll() {
         }
 
         updateHero();
-        updateDepthCards();
 
         const isStillSettling =
           Math.abs(targetScrollY - currentScrollY) > 0.15 ||
@@ -253,9 +240,6 @@ export function use3dScroll() {
         window.removeEventListener("mousemove", onPointerMove);
         window.removeEventListener("resize", onResize);
         document.documentElement.removeEventListener("mouseleave", onPointerLeave);
-        cardMetrics.forEach(({ el }) => {
-          el.style.transform = "";
-        });
         if (heroCard) heroCard.style.transform = "";
         if (heroCopy) heroCopy.style.transform = "";
       };

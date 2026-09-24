@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import bscLogo from "../assets/bsc-logo-crop.webp";
 
 export default function DoorEntrance({ onComplete }) {
@@ -16,38 +16,56 @@ export default function DoorEntrance({ onComplete }) {
     return false;
   });
 
+  const enterRef = useRef(null);
+  const dismissTimerRef = useRef(null);
+
+  const focusMain = useCallback(() => {
+    const main = document.getElementById("main");
+    if (main) {
+      main.setAttribute("tabindex", "-1");
+      main.focus({ preventScroll: true });
+    }
+  }, []);
+
   const handleOpen = useCallback(() => {
     setIsOpen(true);
-    const dismissTimer = setTimeout(() => {
+    dismissTimerRef.current = setTimeout(() => {
       setIsDismissed(true);
+      focusMain();
       if (onComplete) onComplete();
     }, 1100);
-    return () => clearTimeout(dismissTimer);
-  }, [onComplete]);
+  }, [onComplete, focusMain]);
 
   useEffect(() => {
-    if (isDismissed) return;
+    if (isDismissed) return undefined;
 
-    // Auto-open after initial brand greeting
     const timer = setTimeout(() => {
       handleOpen();
     }, 1200);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      if (dismissTimerRef.current) clearTimeout(dismissTimerRef.current);
+    };
   }, [isDismissed, handleOpen]);
+
+  useEffect(() => {
+    if (!isDismissed && enterRef.current) {
+      enterRef.current.focus({ preventScroll: true });
+    }
+  }, [isDismissed]);
 
   if (isDismissed) return null;
 
   return (
     <div
       className={`door-entrance-portal ${isOpen ? "doors-opened" : ""}`}
-      role="dialog"
+      role="region"
       aria-label="Welcome to BSC Shivamogga"
-      aria-modal="true"
     >
       <div className="door-viewport">
         {/* Left Door Panel */}
-        <div className="door-panel door-left">
+        <div className="door-panel door-left" aria-hidden="true">
           <div className="door-inner-molding">
             <div className="door-handle door-handle-left">
               <span className="handle-metal" />
@@ -60,7 +78,7 @@ export default function DoorEntrance({ onComplete }) {
         </div>
 
         {/* Right Door Panel */}
-        <div className="door-panel door-right">
+        <div className="door-panel door-right" aria-hidden="true">
           <div className="door-inner-molding">
             <div className="door-handle door-handle-right">
               <span className="handle-metal" />
@@ -82,21 +100,22 @@ export default function DoorEntrance({ onComplete }) {
                 width="110"
                 height="73"
                 className="emblem-logo"
+                decoding="async"
               />
             </div>
             <p className="emblem-eyebrow">A FIVE-GENERATION LEGACY</p>
-            <h1 className="emblem-title">SHIVAMOGGA GRAND OPENING</h1>
-            <p className="emblem-subtitle">Step Inside the Grand Digital Showroom</p>
+            <p className="emblem-title">SHIVAMOGGA GRAND OPENING</p>
+            <p className="emblem-subtitle">Step Inside the Digital Showroom</p>
 
             <div className="emblem-actions">
               <button
+                ref={enterRef}
                 type="button"
                 className="btn btn-entrance-enter"
                 onClick={handleOpen}
-                autoFocus
               >
                 <span>Enter Showroom</span>
-                <span className="btn-enter-arrow">→</span>
+                <span className="btn-enter-arrow" aria-hidden="true">→</span>
               </button>
 
               <button

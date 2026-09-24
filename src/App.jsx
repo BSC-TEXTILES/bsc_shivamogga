@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Legacy from "./components/Legacy";
@@ -16,31 +16,41 @@ import { use3dScroll } from "./hooks/use3dScroll";
 
 export default function App() {
   use3dScroll();
+  const [introDone, setIntroDone] = useState(() => {
+    if (typeof window === "undefined") return true;
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  });
+
+  const handleIntroComplete = useCallback(() => {
+    setIntroDone(true);
+  }, []);
 
   return (
     <div className="app-root">
-      <DoorEntrance />
+      <DoorEntrance onComplete={handleIntroComplete} />
 
-      <a className="skip-link" href="#main">
-        Skip to main content
-      </a>
+      <div className="app-content" inert={introDone ? undefined : true}>
+        <a className="skip-link" href="#main">
+          Skip to main content
+        </a>
 
-      <Navbar />
+        <Navbar />
 
-      <main id="main">
-        <Hero />
-        <Legacy />
-        <Showroom />
-        <GrandOpening />
-        <GalaDinner />
-        <VendorMeet />
-        <SpecialInvitees />
-        <Locations />
-        <FamilyGreetings />
-        <VenueMap />
-      </main>
+        <main id="main" tabIndex={-1}>
+          <Hero />
+          <Legacy />
+          <Showroom />
+          <GrandOpening />
+          <GalaDinner />
+          <VendorMeet />
+          <SpecialInvitees />
+          <Locations />
+          <FamilyGreetings />
+          <VenueMap />
+        </main>
 
-      <Footer />
+        <Footer />
+      </div>
     </div>
   );
 }

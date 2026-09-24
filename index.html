@@ -5,39 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#5A0718" />
   <meta name="description" content="BSC Shivamogga Grand Opening — Monday, 12 October 2026 at Parekh Vinayaka Mall, BH Road, Shivamogga. Established 1938. Five-generation legacy in fashion and textiles." />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="author" content="BSC Textiles" />
   <title>BSC Shivamogga — Grand Opening | Monday, 12 October 2026</title>
 
   <!-- Open Graph / Social Meta -->
   <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_IN" />
   <meta property="og:title" content="BSC Shivamogga — Grand Opening" />
   <meta property="og:description" content="Grand Opening of our new showroom on Monday, 12 October 2026, 10:30 AM onwards at Parekh Vinayaka Mall, BH Road, Shivamogga. Established 1938." />
-  <meta property="og:image" content="/assets/invite-p1.jpg" />
+  <meta property="og:image" content="https://bsc-shivamogga.vercel.app/assets/invite-p1.jpg" />
+  <meta property="og:image:width" content="1492" />
+  <meta property="og:image:height" content="1054" />
+  <meta property="og:url" content="https://bsc-shivamogga.vercel.app/" />
   <meta property="og:site_name" content="BSC Textiles" />
 
   <!-- Twitter Meta -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="BSC Shivamogga — Grand Opening" />
-  <meta name="twitter:description" content="Join us for the Grand Opening of BSC Shivamogga on Monday, 12 October 2026 at Parekh Vinayaka Mall, BH Road, Shivamogga." />
-  <meta name="twitter:image" content="/assets/invite-p1.jpg" />
+  <meta name="twitter:description" content="Join the Grand Opening of BSC Shivamogga on Monday, 12 October 2026 at Parekh Vinayaka Mall, BH Road, Shivamogga." />
+  <meta name="twitter:image" content="https://bsc-shivamogga.vercel.app/assets/invite-p1.jpg" />
 
   <!-- Favicons -->
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-  <!-- Canonical URL -->
+  <!-- Canonical + hreflang -->
   <link rel="canonical" href="https://bsc-shivamogga.vercel.app/" />
+  <link rel="alternate" hreflang="en" href="https://bsc-shivamogga.vercel.app/" />
+  <link rel="alternate" hreflang="x-default" href="https://bsc-shivamogga.vercel.app/" />
 
   <!-- Preload Critical LCP Hero Image (WebP Responsive) -->
   <link rel="preload" as="image" href="/assets/invite-p1-sm.webp" type="image/webp" media="(max-width: 768px)" fetchpriority="high" />
   <link rel="preload" as="image" href="/assets/invite-p1.webp" type="image/webp" media="(min-width: 769px)" fetchpriority="high" />
 
-  <!-- Google Fonts Preconnect & Asynchronous Non-Blocking Load -->
+  <!-- Google Fonts: async, non-blocking; font-display=swap in URL -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;600;700&display=swap" as="style" />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;600;700&display=swap"
+    rel="stylesheet"
+    media="print"
+    onload="this.media='all'"
+  />
   <noscript>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet" />
   </noscript>
@@ -65,19 +76,60 @@
       }
     },
     "image": [
-      "/assets/invite-p1.jpg",
-      "/assets/showroom-photo.jpg"
+      "https://bsc-shivamogga.vercel.app/assets/invite-p1.jpg"
     ],
     "organizer": {
       "@type": "Organization",
       "name": "BSC Textiles (B.S. Channabasappa & Sons)",
-      "url": "https://www.canvaqr.com/RGS6_7gEBf"
+      "url": "https://bsc-shivamogga.vercel.app/"
     }
   }
   </script>
+
+  <!-- Critical first-paint styles: guarantee FCP before JS/CSS bundles load -->
+  <style>
+    html { background: #5A0718; overflow-x: clip; }
+    body { margin: 0; overflow-x: clip; }
+    #root { min-height: 100vh; min-height: 100dvh; }
+    .fp {
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      padding: 2rem 1.25rem;
+      background: #5A0718;
+      color: #FFFDF9;
+      font-family: Georgia, "Times New Roman", serif;
+      text-align: center;
+    }
+    .fp h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(2rem, 6vw, 3rem);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .fp p {
+      margin: 0.35rem 0;
+      font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #F5EBDD;
+    }
+    .fp .fp-gold { color: #D8BE85; font-size: 0.85rem; letter-spacing: 0.18em; text-transform: uppercase; }
+  </style>
 </head>
 <body>
-  <div id="root"></div>
+  <!-- Static shell paints immediately (FCP); React replaces it on mount -->
+  <div id="root">
+    <div class="fp">
+      <div>
+        <p class="fp-gold">Established 1938 · Five-Generation Legacy</p>
+        <h1>BSC Shivamogga</h1>
+        <p>Grand Opening Celebration</p>
+        <p>Monday, 12 October 2026 · 10:30 AM onwards</p>
+        <p>Parekh Vinayaka Mall, BH Road, Shivamogga</p>
+      </div>
+    </div>
+  </div>
   <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>

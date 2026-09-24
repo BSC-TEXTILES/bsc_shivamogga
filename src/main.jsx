@@ -3,10 +3,8 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 
-// Enable reveal CSS before first paint (skip when user prefers reduced motion)
-if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  document.documentElement.classList.add('js-reveal')
-}
+// Do NOT hide content before first paint. js-reveal is applied in use3dScroll
+// only after in-viewport targets are marked is-visible (avoids NO_FCP / blank load).
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

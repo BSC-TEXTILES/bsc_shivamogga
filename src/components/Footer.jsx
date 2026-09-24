@@ -44,7 +44,7 @@ export default function Footer() {
         <div className="footer-columns-grid" data-reveal>
           {/* Col 1: About */}
           <div className="footer-col">
-            <h4 className="footer-col-title">About BSC</h4>
+            <h2 className="footer-col-title">About BSC</h2>
             <p className="footer-col-text">
               Since 1938, BSC has redefined family fashion and silk sarees in Karnataka. Carrying a five-generation heritage of authentic craftsmanship, trust, and premium selection.
             </p>
@@ -56,7 +56,7 @@ export default function Footer() {
 
           {/* Col 2: Ceremonies */}
           <div className="footer-col">
-            <h4 className="footer-col-title">Opening Events</h4>
+            <h2 className="footer-col-title">Opening Events</h2>
             <ul className="footer-nav-list">
               <li>
                 <a href="#opening">Grand Opening (12 Oct 2026)</a>
@@ -78,7 +78,7 @@ export default function Footer() {
 
           {/* Col 3: Stores & RSVP */}
           <div className="footer-col">
-            <h4 className="footer-col-title">Showroom &amp; RSVP</h4>
+            <h2 className="footer-col-title">Showroom &amp; RSVP</h2>
             <div className="footer-contact-info">
               <div className="contact-row">
                 <MapPin size={14} className="contact-icon" aria-hidden="true" />

@@ -58,7 +58,12 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
+    // Lock page scroll only while the mobile menu overlay is open (not a nested scroller)
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
     return () => {
       document.body.style.overflow = "";
     };
